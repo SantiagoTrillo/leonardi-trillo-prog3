@@ -1,0 +1,25 @@
+{
+  "name": "leonardi-trillo-prog3",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/SantiagoTrillo/leonardi-trillo-prog3#readme",
+  "bugs": {
+    "url": "https://github.com/SantiagoTrillo/leonardi-trillo-prog3/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SantiagoTrillo/leonardi-trillo-prog3.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}
