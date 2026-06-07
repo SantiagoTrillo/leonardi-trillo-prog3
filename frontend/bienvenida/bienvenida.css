@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+.pagina-bienvenida {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 12px 30px;
+}
+
+.marco-aplicacion {
+    height: calc(100vh - 24px);
+    overflow: hidden;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 22px;
+    background: var(--fondo-oscuro);
+}
+
+.barra-bienvenida {
+    height: 96px;
+    border-bottom: 1.5px solid var(--color-linea);
+}
+
+.contenido-barra-bienvenida {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 52px;
+}
+
+.acceso-administradores {
+    width: 260px;
+    max-width: 100%;
+    min-height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.acceso-administradores:hover,
+.acceso-administradores:focus {
+    background: var(--texto-principal);
+    color: var(--fondo-oscuro);
+    border-color: var(--texto-principal);
+}
+
+.nombre-aplicacion {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--texto-principal);
+    font-size: clamp(1.6rem, 2vw, 2.15rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.autores {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.contenido-bienvenida {
+    height: calc(100% - 96px);
+    padding: clamp(58px, 7vh, 72px) 20px 28px;
+}
+
+.titulo-bienvenida {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(2.25rem, 3.1vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.formulario-bienvenida {
+    width: min(100%, 270px);
+    margin-top: clamp(54px, 8vh, 76px);
+    gap: clamp(62px, 10vh, 88px);
+}
+
+.campo-nombre {
+    width: 230px;
+    height: 50px;
+    padding: 0 18px;
+    border: 1.5px solid #777;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.campo-nombre::placeholder {
+    color: var(--texto-secundario);
+    opacity: 1;
+}
+
+.campo-nombre:focus {
+    background: transparent;
+    color: var(--texto-principal);
+    border-color: var(--color-linea);
+    box-shadow: 0 0 0 0.2rem rgba(214, 214, 214, 0.14);
+}
+
+.boton-continuar {
+    width: 245px;
+    height: 58px;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 12px;
+    background: var(--boton-oscuro);
+    color: var(--texto-principal);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.boton-continuar:hover,
+.boton-continuar:focus {
+    background: var(--texto-principal);
+    color: var(--fondo-oscuro);
+    border-color: var(--texto-principal);
+}
+
+@media (max-width: 1199.98px) {
+    .contenido-barra-bienvenida {
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 14px 24px;
+    }
+
+    .barra-bienvenida {
+        height: 174px;
+    }
+
+    .acceso-administradores {
+        width: min(100%, 280px);
+        min-height: 48px;
+        font-size: 1.1rem;
+    }
+
+    .nombre-aplicacion {
+        position: static;
+        transform: none;
+    }
+
+    .autores {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .contenido-bienvenida {
+        height: calc(100% - 174px);
+        padding-top: 38px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .pagina-bienvenida {
+        padding: 10px;
+    }
+
+    .marco-aplicacion {
+        height: calc(100vh - 20px);
+        border-radius: 16px;
+    }
+
+    .nombre-aplicacion {
+        font-size: 1.55rem;
+    }
+
+    .titulo-bienvenida {
+        font-size: 1.9rem;
+    }
+
+    .formulario-bienvenida {
+        margin-top: 40px;
+        gap: 46px;
+    }
+
+    .campo-nombre,
+    .boton-continuar {
+        width: 100%;
+    }
+
+    .boton-continuar {
+        height: 54px;
+    }
+}
