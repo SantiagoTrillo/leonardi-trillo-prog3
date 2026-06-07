@@ -4,8 +4,12 @@ import express from "express"
 import path from "path"
 import {fileURLToPath} from "url"
 
+import rutaProducto from "./routes/rutaProducto.js";
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+
 
 //Creamos una instancia de express
 const app = express()
@@ -25,6 +29,10 @@ app.use(express.static(path.join(__dirname, "public")))
 //Middlewares Cors que permite peticiones desde el front
 app.use(cors());
 
+app.use("/", rutaProducto);
+
+
+/*
 app.get("/", (req, res) => {
     res.render("login", {
         titulo: "Home"
@@ -36,7 +44,8 @@ app.get("/pruebas", (req, res) => {
         titulo: "Pruebas"
     })
 })
-
+  */
 app.listen(PUERTO, () => {
-    
-})
+    console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
+
+});
