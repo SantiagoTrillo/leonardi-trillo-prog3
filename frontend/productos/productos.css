@@ -1,0 +1,540 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.pagina-productos {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 12px 30px;
+}
+
+.marco-aplicacion {
+    height: calc(100vh - 24px);
+    overflow: hidden;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 22px;
+    background: var(--fondo-oscuro);
+}
+
+/* Barra Superior (Header) */
+.barra-superior {
+    height: 96px;
+    border-bottom: 1.5px solid var(--color-linea);
+}
+
+.contenido-barra-superior {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 52px;
+}
+
+.seccion-izquierda {
+    width: 260px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-home {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.35rem;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-home:hover,
+.btn-home:focus {
+    background: var(--texto-principal);
+    color: var(--fondo-oscuro);
+    border-color: var(--texto-principal);
+    transform: scale(1.05);
+}
+
+.nombre-aplicacion {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--texto-principal);
+    font-size: clamp(1.6rem, 2vw, 2.15rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+
+.seccion-derecha {
+    flex-shrink: 0;
+}
+
+.autores {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Cuerpo de Productos */
+.cuerpo-productos {
+    height: calc(100% - 96px);
+}
+
+/* Columna Izquierda: Selector Catálogo */
+.panel-izquierdo {
+    width: 260px;
+    border-right: 1.5px solid var(--color-linea);
+    padding: 40px 20px;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.btn-catalogo {
+    width: 100%;
+    min-height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: transparent;
+    color: var(--texto-secundario);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    white-space: nowrap;
+}
+
+.btn-catalogo:hover {
+    color: var(--texto-principal);
+    border-color: var(--texto-principal);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-catalogo.active {
+    background: var(--boton-oscuro);
+    color: var(--texto-principal);
+    border-color: var(--texto-principal);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+}
+
+/* Columna Central: Catálogo de Películas / Series */
+.panel-central {
+    padding: 30px;
+    border-right: 1.5px solid var(--color-linea);
+}
+
+.cabecera-panel-central {
+    margin-bottom: 24px;
+}
+
+.saludo-bienvenida {
+    margin: 0 0 6px 0;
+    color: var(--texto-principal);
+    font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.saludo-bienvenida span {
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--texto-secundario) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitulo-seccion {
+    margin: 0;
+    color: var(--texto-secundario);
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    font-weight: 400;
+}
+
+.contenedor-grilla {
+    border: 1.5px solid var(--color-linea);
+    border-radius: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.015);
+    backdrop-filter: blur(10px);
+}
+
+.grilla-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 24px;
+}
+
+/* Tarjeta Producto */
+.tarjeta-producto {
+    background: transparent;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-6px);
+}
+
+.contenedor-portada {
+    width: 100%;
+    aspect-ratio: 2/3;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.tarjeta-producto:hover .contenedor-portada {
+    border-color: var(--texto-principal);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.portada-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.tarjeta-producto:hover .portada-img {
+    transform: scale(1.06);
+}
+
+.overlay-agregar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    color: var(--texto-principal);
+    gap: 8px;
+}
+
+.overlay-agregar i {
+    font-size: 1.8rem;
+    transform: translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.overlay-agregar span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transform: translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0.05s;
+}
+
+.tarjeta-producto:hover .overlay-agregar {
+    opacity: 1;
+}
+
+.tarjeta-producto:hover .overlay-agregar i,
+.tarjeta-producto:hover .overlay-agregar span {
+    transform: translateY(0);
+}
+
+.info-producto {
+    width: 100%;
+    padding: 0 4px;
+}
+
+.titulo-producto {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.precio-producto {
+    font-size: 0.9rem;
+    color: var(--texto-secundario);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Columna Derecha: Vista Previa Carrito */
+.panel-derecho {
+    width: 320px;
+    padding: 30px 20px;
+    flex-shrink: 0;
+}
+
+.cabecera-carrito {
+    margin-bottom: 20px;
+}
+
+.cabecera-carrito h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--texto-principal);
+    padding-bottom: 12px;
+    border-bottom: 1.5px solid rgba(201, 201, 201, 0.25);
+}
+
+.lista-carrito {
+    padding-right: 4px;
+}
+
+/* Item de Carrito */
+.item-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.01);
+    gap: 12px;
+    animation: slideIn 0.25s ease-out;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.item-carrito:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--texto-principal);
+}
+
+.item-carrito-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.item-carrito-titulo {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--texto-principal);
+}
+
+.item-carrito-precio {
+    font-size: 0.85rem;
+    color: var(--texto-secundario);
+    margin: 0;
+    font-weight: 500;
+}
+
+.btn-eliminar-item {
+    background: transparent;
+    border: none;
+    color: #ef5350;
+    font-size: 1.15rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-eliminar-item:hover {
+    background: rgba(239, 83, 80, 0.15);
+    color: #e53935;
+    transform: scale(1.05);
+}
+
+/* Pie del Carrito */
+.pie-carrito {
+    margin-top: 16px;
+    border-top: 1.5px solid rgba(201, 201, 201, 0.25);
+    padding-top: 16px;
+}
+
+.total-label {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--texto-secundario);
+}
+
+.total-monto {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--texto-principal);
+}
+
+.btn-continuar {
+    width: 100%;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: var(--boton-oscuro);
+    color: var(--texto-principal);
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-continuar:hover,
+.btn-continuar:focus {
+    background: var(--texto-principal);
+    color: var(--fondo-oscuro);
+    border-color: var(--texto-principal);
+    transform: scale(1.02);
+}
+
+/* Animaciones */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scrollbar Personalizado */
+.lista-carrito::-webkit-scrollbar,
+.contenedor-grilla::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-carrito::-webkit-scrollbar-track,
+.contenedor-grilla::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lista-carrito::-webkit-scrollbar-thumb,
+.contenedor-grilla::-webkit-scrollbar-thumb {
+    background: rgba(201, 201, 201, 0.25);
+    border-radius: 10px;
+}
+
+.lista-carrito::-webkit-scrollbar-thumb:hover,
+.contenedor-grilla::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 201, 201, 0.55);
+}
+
+/* Adaptabilidad Responsiva */
+@media (max-width: 1199.98px) {
+    .pagina-productos {
+        padding: 10px;
+        overflow: auto;
+    }
+
+    .marco-aplicacion {
+        height: auto;
+        min-height: calc(100vh - 20px);
+        overflow: visible;
+    }
+
+    .barra-superior {
+        height: auto;
+        padding: 16px 0;
+    }
+
+    .contenido-barra-superior {
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px 24px;
+        height: auto;
+    }
+
+    .seccion-izquierda {
+        width: auto;
+        justify-content: center;
+    }
+
+    .nombre-aplicacion {
+        position: static;
+        transform: none;
+    }
+
+    .autores {
+        text-align: center;
+    }
+
+    .cuerpo-productos {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+
+    .panel-izquierdo {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1.5px solid var(--color-linea);
+        flex-direction: row;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .btn-catalogo {
+        width: auto;
+        flex: 1;
+        max-width: 250px;
+    }
+
+    .panel-central {
+        border-right: none;
+        border-bottom: 1.5px solid var(--color-linea);
+        padding: 24px 16px;
+    }
+
+    .contenedor-grilla {
+        max-height: 500px;
+    }
+
+    .panel-derecho {
+        width: 100%;
+        padding: 24px 16px;
+    }
+    
+    .lista-carrito {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .btn-catalogo {
+        font-size: 0.95rem;
+        min-height: 48px;
+        border-radius: 12px;
+        padding: 0 10px;
+    }
+    
+    .btn-home {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        font-size: 1.15rem;
+    }
+}
