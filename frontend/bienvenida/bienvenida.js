@@ -7,7 +7,6 @@ formulario.addEventListener("submit", (evento) => {
     const nombre = nombreCliente.value.trim();
 
     if (!nombre) {
-        nombreCliente.focus();
         return;
     }
 
