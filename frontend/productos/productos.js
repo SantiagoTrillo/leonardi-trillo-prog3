@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Validar nombre del cliente y mostrarlo
     const nombreCliente = localStorage.getItem("nombreCliente");
     if (!nombreCliente) {
-        // Si no hay nombre guardado, redirigir a bienvenida para cumplir las consignas
         window.location.href = "../bienvenida/bienvenida.html";
         return;
     }
@@ -12,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
         nombreClienteSpan.textContent = nombreCliente;
     }
 
-    // 2. Base de datos Mock (Series y Películas)
     const productosDB = {
         series: [
             {
@@ -37,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: "s4",
                 titulo: "Throne of Swords",
                 precio: 870,
-                imagen: "https://images.unsplash.com/photo-1599733589046-9b8308b5b50d?q=80&w=400&auto=format&fit=crop"
+                imagen: "https://images.unsplash.com/photo-1519074002996-a69e7ac46a42?q=80&w=400&auto=format&fit=crop"
             },
             {
                 id: "s5",
@@ -50,6 +47,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 titulo: "Cyber Hacker",
                 precio: 880,
                 imagen: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s7",
+                titulo: "Retro Gaming",
+                precio: 850,
+                imagen: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s8",
+                titulo: "Kingdom of Ice",
+                precio: 910,
+                imagen: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s9",
+                titulo: "Viking Legends",
+                precio: 880,
+                imagen: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s10",
+                titulo: "Neon Nights",
+                precio: 940,
+                imagen: "https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s11",
+                titulo: "Lost Expedition",
+                precio: 860,
+                imagen: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "s12",
+                titulo: "AI Revolution",
+                precio: 990,
+                imagen: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop"
             }
         ],
         peliculas: [
@@ -88,14 +121,48 @@ document.addEventListener("DOMContentLoaded", () => {
                 titulo: "Jungle Quest",
                 precio: 430,
                 imagen: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p7",
+                titulo: "Golden Hour",
+                precio: 440,
+                imagen: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p8",
+                titulo: "Deep Ocean",
+                precio: 470,
+                imagen: "https://images.unsplash.com/photo-1682687220063-4742bd7fd538?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p9",
+                titulo: "Cyber Runner",
+                precio: 495,
+                imagen: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p10",
+                titulo: "Shadow Forest",
+                precio: 430,
+                imagen: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p11",
+                titulo: "Future City",
+                precio: 480,
+                imagen: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=400&auto=format&fit=crop"
+            },
+            {
+                id: "p12",
+                titulo: "Retro Car",
+                precio: 450,
+                imagen: "https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?q=80&w=400&auto=format&fit=crop"
             }
         ]
     };
 
-    // 3. Estado del Carrito (recuperar de localStorage si existe, sino vacío)
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-    // Elementos del DOM
     const btnSeries = document.getElementById("btnSeries");
     const btnPeliculas = document.getElementById("btnPeliculas");
     const tipoCatalogoSpan = document.getElementById("tipoCatalogoSpan");
@@ -105,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let catalogoActual = "series";
 
-    // 4. Funciones de Renderizado
     function renderizarCatalogo() {
         grillaProductos.innerHTML = "";
         const productos = productosDB[catalogoActual];
@@ -130,7 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            // Al hacer click, agregar al carrito
             tarjeta.addEventListener("click", () => {
                 agregarAlCarrito(producto);
             });
@@ -145,8 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (carrito.length === 0) {
             listaCarrito.innerHTML = `
                 <div class="carrito-vacio-msg text-center py-5">
-                    <i class="fa-solid fa-basket-shopping mb-2 fs-3 opacity-50"></i>
-                    <p class="mb-0 text-muted">El carrito está vacío</p>
+                    <i class="fa-solid fa-basket-shopping mb-2"></i>
+                    <p class="mb-0">El carrito está vacío</p>
                 </div>
             `;
             totalMonto.textContent = "$0";
@@ -172,10 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 </button>
             `;
 
-            // Evento para eliminar
             const btnEliminar = itemDiv.querySelector(".btn-eliminar-item");
             btnEliminar.addEventListener("click", (e) => {
-                e.stopPropagation(); // Evitar cualquier otro click accidental
+                e.stopPropagation();
                 eliminarDelCarrito(item.uid);
             });
 
@@ -183,14 +247,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         totalMonto.textContent = `$${total}`;
-        
-        // Persistir el estado actual del carrito
         localStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
-    // 5. Funciones del Carrito
     function agregarAlCarrito(producto) {
-        // Generar un ID único de item en el carrito para permitir duplicados del mismo producto
         const itemCarrito = {
             ...producto,
             uid: Date.now() + Math.random().toString(36).substring(2, 9)
@@ -199,7 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
         carrito.push(itemCarrito);
         actualizarCarritoUI();
 
-        // Efecto visual: desplazar el carrito al fondo para ver el nuevo producto agregado
         setTimeout(() => {
             listaCarrito.scrollTop = listaCarrito.scrollHeight;
         }, 50);
@@ -210,7 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarritoUI();
     }
 
-    // 6. Configurar Event Listeners para filtros de Catálogo
     btnSeries.addEventListener("click", () => {
         if (catalogoActual !== "series") {
             catalogoActual = "series";
@@ -231,7 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 7. Inicialización
     renderizarCatalogo();
     actualizarCarritoUI();
 });
