@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // 0. Inicializar y Persistir Tema
+    const btnTema = document.getElementById("btnTema");
+    const iconTema = btnTema ? btnTema.querySelector("i") : null;
+
+    function aplicarTema() {
+        const temaGuardado = localStorage.getItem("tema") || "dark";
+        if (temaGuardado === "light") {
+            document.body.classList.add("light-mode");
+            if (iconTema) iconTema.className = "fa-solid fa-sun";
+        } else {
+            document.body.classList.remove("light-mode");
+            if (iconTema) iconTema.className = "fa-solid fa-moon";
+        }
+    }
+    
+    aplicarTema();
+
+    if (btnTema) {
+        btnTema.addEventListener("click", () => {
+            if (document.body.classList.contains("light-mode")) {
+                localStorage.setItem("tema", "dark");
+            } else {
+                localStorage.setItem("tema", "light");
+            }
+            aplicarTema();
+        });
+    }
+
+    // 1. Validar nombre del cliente y mostrarlo
     const nombreCliente = localStorage.getItem("nombreCliente");
     if (!nombreCliente) {
         window.location.href = "../bienvenida/bienvenida.html";

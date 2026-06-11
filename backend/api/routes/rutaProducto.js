@@ -7,4 +7,4 @@ rutaProducto.get("/altaProducto", (req, res) => {
     res.send("altaProducto");
 });
 
-export default rutaProducto;
+export { rutaProducto };
