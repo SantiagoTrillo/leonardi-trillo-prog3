@@ -87,20 +87,20 @@
 }
 
 .cuerpo-productos {
-    min-height: calc(100vh - 96px - 24px);
+    min-height: calc(100vh - 96px - 24px - 24px);
     height: auto;
     overflow: visible;
 }
 
 .panel-izquierdo {
     width: 260px;
-    padding: 40px 20px;
+    padding: 20px 20px;
     gap: 20px;
     flex-shrink: 0;
     position: sticky;
-    top: 24px;
+    top: 0;
     align-self: flex-start;
-    height: calc(100vh - 48px);
+    height: 100vh;
     overflow-y: auto;
 }
 
@@ -286,12 +286,12 @@
 
 .panel-derecho {
     width: 320px;
-    padding: 30px 20px;
+    padding: 15px 20px;
     flex-shrink: 0;
     position: sticky;
-    top: 24px;
+    top: 0;
     align-self: flex-start;
-    height: calc(100vh - 48px);
+    height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -341,10 +341,32 @@
     font-size: 0.95rem;
     font-weight: 600;
     margin: 0 0 2px 0;
+    color: var(--texto-principal);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.item-carrito-texto {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--texto-principal);
+    min-width: 0;
+    flex-grow: 1;
+}
+
+.item-carrito-multiplicador {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1px 6px;
+    border-radius: 6px;
+    border: 1px solid rgba(201, 201, 201, 0.15);
+    flex-shrink: 0;
+    display: inline-block;
+    line-height: 1.2;
 }
 
 .item-carrito-precio {
@@ -503,6 +525,7 @@
         flex-direction: column;
         height: auto;
         overflow: visible;
+        margin-bottom: 0;
     }
 
     .panel-izquierdo {

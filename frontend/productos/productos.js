@@ -162,6 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito = carrito.map(item => {
+        if (!item.cantidad) item.cantidad = 1;
+        return item;
+    });
 
     const btnSeries = document.getElementById("btnSeries");
     const btnPeliculas = document.getElementById("btnPeliculas");
@@ -222,15 +226,20 @@ document.addEventListener("DOMContentLoaded", () => {
         let total = 0;
 
         carrito.forEach(item => {
-            total += item.precio;
+            total += item.precio * item.cantidad;
 
             const itemDiv = document.createElement("div");
             itemDiv.className = "item-carrito";
             
+            const multiplicadorHTML = item.cantidad > 1 ? ` <span class="item-carrito-multiplicador">x${item.cantidad}</span>` : "";
+            
             itemDiv.innerHTML = `
                 <div class="item-carrito-info">
-                    <h4 class="item-carrito-titulo">${item.titulo}</h4>
-                    <p class="item-carrito-precio">$${item.precio}</p>
+                    <h4 class="item-carrito-titulo">
+                        <span class="item-carrito-texto">${item.titulo}</span>
+                        ${multiplicadorHTML}
+                    </h4>
+                    <p class="item-carrito-precio">$${item.precio * item.cantidad}</p>
                 </div>
                 <button class="btn-eliminar-item" aria-label="Eliminar ${item.titulo} del carrito" type="button">
                     <i class="fa-solid fa-trash-can"></i>
@@ -240,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const btnEliminar = itemDiv.querySelector(".btn-eliminar-item");
             btnEliminar.addEventListener("click", (e) => {
                 e.stopPropagation();
-                eliminarDelCarrito(item.uid);
+                eliminarDelCarrito(item.id);
             });
 
             listaCarrito.appendChild(itemDiv);
@@ -251,12 +260,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function agregarAlCarrito(producto) {
-        const itemCarrito = {
-            ...producto,
-            uid: Date.now() + Math.random().toString(36).substring(2, 9)
-        };
+        const itemExistente = carrito.find(item => item.id === producto.id);
 
-        carrito.push(itemCarrito);
+        if (itemExistente) {
+            itemExistente.cantidad += 1;
+        } else {
+            carrito.push({
+                ...producto,
+                cantidad: 1
+            });
+        }
+
         actualizarCarritoUI();
 
         setTimeout(() => {
@@ -264,8 +278,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 50);
     }
 
-    function eliminarDelCarrito(uid) {
-        carrito = carrito.filter(item => item.uid !== uid);
+    function eliminarDelCarrito(id) {
+        carrito = carrito.filter(item => item.id !== id);
         actualizarCarritoUI();
     }
 
