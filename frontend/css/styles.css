@@ -6,6 +6,14 @@
     --boton-oscuro: #202326;
 }
 
+body.light-mode {
+    --fondo-oscuro: #f5f6f8;
+    --color-linea: #2e3440;
+    --texto-principal: #2e3440;
+    --texto-secundario: #4c566a;
+    --boton-oscuro: #d8dee9;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -20,6 +28,7 @@ body {
     font-family: "Inter", Arial, sans-serif;
     background: var(--fondo-oscuro);
     color: var(--texto-principal);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 a {

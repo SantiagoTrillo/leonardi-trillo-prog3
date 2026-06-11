@@ -36,7 +36,8 @@
     align-items: center;
 }
 
-.btn-home {
+.btn-home,
+.btn-tema {
     width: 58px;
     height: 58px;
     display: flex;
@@ -48,10 +49,13 @@
     font-size: 1.35rem;
     background: transparent;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
 }
 
 .btn-home:hover,
-.btn-home:focus {
+.btn-home:focus,
+.btn-tema:hover,
+.btn-tema:focus {
     background: var(--texto-principal);
     color: var(--fondo-oscuro);
     border-color: var(--texto-principal);
@@ -531,7 +535,8 @@
         padding: 0 10px;
     }
     
-    .btn-home {
+    .btn-home,
+    .btn-tema {
         width: 48px;
         height: 48px;
         border-radius: 12px;
