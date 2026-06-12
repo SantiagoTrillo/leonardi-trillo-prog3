@@ -360,6 +360,12 @@
     flex-grow: 1;
 }
 
+.item-carrito:hover .item-carrito-texto {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
 .item-carrito-multiplicador {
     font-size: 0.75rem;
     font-weight: 700;

@@ -4,23 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - CineStream</title>
-    <!-- Bootstrap 5.3.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- FontAwesome 6.5.1 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="./carrito.css">
-    <!-- JS -->
     <script src="./carrito.js" defer></script>
 </head>
 <body class="pagina-carrito">
     <div class="marco-aplicacion d-flex flex-column">
-        <!-- Barra Superior (Header) -->
         <nav class="barra-superior">
             <div class="contenido-barra-superior">
                 <div class="seccion-izquierda d-flex align-items-center gap-3">
-                    <a class="btn-home" href="../productos/productos.html" id="btnVolver" aria-label="Volver al catálogo">
+                    <a class="btn-home" href="../bienvenida/bienvenida.html" id="btnVolver" aria-label="Volver al inicio">
                         <i class="fa-solid fa-house"></i>
                     </a>
                     <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button">
@@ -34,24 +29,14 @@
             </div>
         </nav>
         
-        <!-- Contenedor Principal (2 Columnas) -->
-        <div class="cuerpo-carrito d-flex flex-grow-1 overflow-hidden">
-            
-            <!-- Columna Izquierda: Visualización de Pósters y Botón Confirmar -->
-            <main class="panel-izquierdo d-flex flex-column flex-grow-1 overflow-hidden p-4">
+        <div class="cuerpo-carrito d-flex flex-grow-1">
+            <main class="panel-izquierdo d-flex flex-column flex-grow-1 p-4">
                 <div class="cabecera-panel-izquierdo text-center mb-3">
-                    <h1 class="titulo-seccion">Mis Películas y Series Seleccionadas</h1>
-                    <p class="subtitulo-seccion">Vista previa de tus tickets</p>
+                    <h1 class="titulo-seccion">Productos seleccionados</h1>
                 </div>
                 
-                <!-- Grilla de pósters seleccionados -->
-                <div class="contenedor-grilla-posters flex-grow-1 overflow-auto mb-4">
-                    <div class="grilla-posters" id="grillaPosters">
-                        <!-- Se cargarán dinámicamente mediante JS -->
-                    </div>
-                </div>
+                <div class="grilla-posters mb-4" id="grillaPosters"></div>
                 
-                <!-- Botón Confirmar Compra -->
                 <div class="seccion-confirmar text-center">
                     <button class="btn-confirmar-compra w-100" id="btnConfirmarCompra" type="button">
                         Confirmar compra
@@ -59,18 +44,13 @@
                 </div>
             </main>
             
-            <!-- Columna Derecha: Detalle de Cantidades y Total -->
-            <aside class="panel-derecho d-flex flex-column overflow-hidden p-4">
+            <aside class="panel-derecho d-flex flex-column p-4">
                 <div class="cabecera-resumen text-center mb-3">
                     <h2 class="titulo-resumen">Detalle del Carrito</h2>
                 </div>
                 
-                <!-- Lista de items agrupados con sumadores y restadores -->
-                <div class="lista-resumen-carrito flex-grow-1 overflow-auto" id="listaResumenCarrito">
-                    <!-- Cargado dinámicamente -->
-                </div>
+                <div class="lista-resumen-carrito flex-grow-1 overflow-auto" id="listaResumenCarrito"></div>
                 
-                <!-- Pie del Resumen: Total -->
                 <div class="pie-resumen mt-3">
                     <div class="d-flex justify-content-between align-items-center mb-2 px-2">
                         <span class="total-label">TOTAL:</span>
@@ -78,41 +58,6 @@
                     </div>
                 </div>
             </aside>
-            
-        </div>
-    </div>
-
-    <!-- Modal Personalizado de Confirmación -->
-    <div class="modal-overlay d-none" id="modalConfirmar">
-        <div class="modal-tarjeta text-center">
-            <div class="modal-icono mb-3">
-                <i class="fa-solid fa-cart-shopping fs-1"></i>
-            </div>
-            <h3 class="modal-titulo mb-2">¿Confirmar compra?</h3>
-            <p class="modal-texto mb-4">Se generará tu ticket de compra y se iniciará la descarga del comprobante PDF.</p>
-            <div class="modal-info-resumen mb-4 p-3 rounded">
-                <div class="d-flex justify-content-between mb-1">
-                    <span>Cliente:</span>
-                    <strong id="modalNombreCliente">-</strong>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span>Total a Pagar:</span>
-                    <strong id="modalTotalMonto">$0</strong>
-                </div>
-            </div>
-            
-            <!-- Estado de carga durante la simulación de descarga -->
-            <div class="modal-cargando d-none mb-4" id="modalCargando">
-                <div class="spinner-border text-light" role="status">
-                    <span class="visually-hidden">Procesando...</span>
-                </div>
-                <p class="mt-2 text-muted">Generando comprobante PDF...</p>
-            </div>
-
-            <div class="modal-botones d-flex gap-3 justify-content-center" id="modalBotones">
-                <button class="btn-modal btn-cancelar" id="btnModalCancelar" type="button">Cancelar</button>
-                <button class="btn-modal btn-confirmar" id="btnModalConfirmar" type="button">Confirmar</button>
-            </div>
         </div>
     </div>
 </body>
