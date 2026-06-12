@@ -227,7 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 cliente: nombreCliente,
                 items: carrito,
                 total: total,
-                fecha: new Date().toLocaleDateString('es-AR')
+                fecha: new Date().toLocaleDateString('es-AR'),
+                hora: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
             };
             localStorage.setItem("ultimoTicket", JSON.stringify(compraFinalizada));
 
