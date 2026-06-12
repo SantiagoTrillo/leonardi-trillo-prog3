@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Cargar detalles del ticket
-    const ultimoTicket = JSON.parse(localStorage.getItem("ultimoTicket"));
+    const ultimoTicket = JSON.parse(sessionStorage.getItem("ultimoTicket"));
     if (!ultimoTicket) {
-        // Redirigir a bienvenida si se intenta acceder directamente
         window.location.href = "../bienvenida/bienvenida.html";
         return;
     }
 
-    // Elementos del DOM
     const ticketNombreCliente = document.getElementById("ticketNombreCliente");
     const ticketFecha = document.getElementById("ticketFecha");
     const ticketItemsContainer = document.getElementById("ticketItemsContainer");
@@ -15,11 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnDescargarTicket = document.getElementById("btnDescargarTicket");
     const btnSalir = document.getElementById("btnSalir");
     
-    // Botón de Tema
     const btnTema = document.getElementById("btnTema");
     const iconTema = btnTema.querySelector("i");
 
-    // 2. Inicializar y Persistir Tema
     const temaGuardado = localStorage.getItem("tema") || "dark";
     if (temaGuardado === "light") {
         document.body.classList.add("light-mode");
@@ -41,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. Agrupar productos para listado del ticket
     function agruparProductos(items) {
         const agrupados = [];
         items.forEach(item => {
@@ -60,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return agrupados;
     }
 
-    // 4. Renderizar datos del ticket
     ticketNombreCliente.textContent = ultimoTicket.cliente;
     ticketFecha.textContent = ultimoTicket.fecha;
     ticketTotalMonto.textContent = `$${ultimoTicket.total.toLocaleString('es-AR')}`;
@@ -79,19 +72,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketItemsContainer.appendChild(itemDiv);
     });
 
-    // 5. Descargar Ticket (Abre el diálogo de impresión configurado para PDF)
     btnDescargarTicket.addEventListener("click", () => {
         window.print();
     });
 
-    // 6. Salir / Nueva Compra
     btnSalir.addEventListener("click", () => {
-        // Limpiar nombre del cliente y ticket para reiniciar todo el flujo de compra
-        localStorage.removeItem("nombreCliente");
-        localStorage.removeItem("ultimoTicket");
-        localStorage.removeItem("carrito");
-        
-        // Redirigir a bienvenida
+        sessionStorage.removeItem("nombreCliente");
+        sessionStorage.removeItem("ultimoTicket");
+        sessionStorage.removeItem("carrito");
         window.location.href = "../bienvenida/bienvenida.html";
     });
 });
