@@ -204,3 +204,35 @@
         height: 54px;
     }
 }
+
+.btn-tema {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.35rem;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.btn-tema:hover,
+.btn-tema:focus {
+    background: var(--texto-principal);
+    color: var(--fondo-oscuro);
+    border-color: var(--texto-principal);
+    transform: scale(1.05);
+}
+
+@media (max-width: 575.98px) {
+    .btn-tema {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        font-size: 1.15rem;
+    }
+}
