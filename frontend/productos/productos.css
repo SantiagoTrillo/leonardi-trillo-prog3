@@ -58,10 +58,11 @@
 .btn-home:focus,
 .btn-tema:hover,
 .btn-tema:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
     transform: scale(1.05);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.35);
 }
 
 .nombre-aplicacion {
@@ -125,16 +126,16 @@
 }
 
 .btn-catalogo:hover {
-    color: var(--texto-principal);
-    border-color: var(--texto-principal);
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    background: rgba(255, 144, 0, 0.03);
 }
 
 .btn-catalogo.active {
-    background: var(--boton-oscuro);
-    color: var(--texto-principal);
-    border-color: var(--texto-principal);
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.08);
+    background: rgba(255, 144, 0, 0.08);
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.15);
 }
 
 .panel-central {
@@ -154,13 +155,7 @@
     font-size: clamp(1.8rem, 2.5vw, 2.3rem);
     font-weight: 500;
     letter-spacing: -0.5px;
-}
-
-.saludo-bienvenida span {
-    font-weight: 700;
-    background: linear-gradient(135deg, #fff 0%, var(--texto-secundario) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    word-break: break-word;
 }
 
 .subtitulo-seccion {
@@ -171,12 +166,14 @@
 }
 
 .grilla-productos {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 24px;
 }
 
 .tarjeta-producto {
+    width: 170px;
     background: transparent;
     border-radius: 16px;
     cursor: pointer;
@@ -238,6 +235,7 @@
 
 .overlay-agregar i {
     font-size: 1.8rem;
+    color: var(--color-acento);
     transform: translateY(10px);
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -369,11 +367,11 @@
 .item-carrito-multiplicador {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--texto-secundario);
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--color-acento);
+    background: rgba(255, 144, 0, 0.08);
     padding: 1px 6px;
     border-radius: 6px;
-    border: 1px solid rgba(201, 201, 201, 0.15);
+    border: 1px solid rgba(255, 144, 0, 0.25);
     flex-shrink: 0;
     display: inline-block;
     line-height: 1.2;
@@ -421,7 +419,7 @@
 .total-monto {
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--texto-principal);
+    color: var(--color-acento);
 }
 
 .btn-continuar {
@@ -442,10 +440,11 @@
 
 .btn-continuar:hover,
 .btn-continuar:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
     transform: scale(1.02);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
 }
 
 .carrito-vacio-msg {
@@ -453,9 +452,9 @@
 }
 
 .carrito-vacio-msg i {
-    color: var(--texto-secundario);
+    color: var(--color-acento);
     font-size: 2.2rem;
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .carrito-vacio-msg p {
@@ -504,33 +503,6 @@
         overflow: visible;
     }
 
-    .barra-superior {
-        height: auto;
-        padding: 16px 0;
-    }
-
-    .contenido-barra-superior {
-        flex-direction: column;
-        justify-content: center;
-        gap: 15px;
-        padding: 10px 24px;
-        height: auto;
-    }
-
-    .seccion-izquierda {
-        width: auto;
-        justify-content: center;
-    }
-
-    .nombre-aplicacion {
-        position: static;
-        transform: none;
-    }
-
-    .autores {
-        text-align: center;
-    }
-
     .cuerpo-productos {
         flex-direction: column;
         height: auto;
@@ -542,11 +514,12 @@
         width: 100%;
         border-right: none;
         border-bottom: 1.5px solid var(--color-linea);
-        flex-direction: row;
+        flex-direction: row !important;
         justify-content: center;
         padding: 20px;
         position: static;
         height: auto;
+        gap: 16px;
     }
 
     .btn-catalogo {
@@ -575,8 +548,54 @@
     }
 }
 
+@media (max-width: 1023.98px) {
+    .barra-superior {
+        height: auto;
+        padding: 16px 0;
+    }
+
+    .contenido-barra-superior {
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        height: auto;
+    }
+
+    .seccion-izquierda {
+        width: auto;
+        justify-content: center;
+    }
+
+    .nombre-aplicacion {
+        position: static;
+        transform: none;
+    }
+
+    .autores {
+        text-align: center;
+        white-space: normal;
+        font-size: 0.85rem;
+        margin-top: 4px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .contenido-barra-superior {
+        padding: 0 24px !important;
+    }
+}
+
 @media (max-width: 575.98px) {
+    .panel-izquierdo {
+        flex-direction: column !important;
+        gap: 12px !important;
+        padding: 15px 10px !important;
+    }
+
     .btn-catalogo {
+        width: 100% !important;
+        max-width: 280px !important;
         font-size: 0.95rem;
         min-height: 48px;
         border-radius: 12px;
@@ -589,5 +608,11 @@
         height: 48px;
         border-radius: 12px;
         font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .tarjeta-producto {
+        width: 140px !important;
     }
 }

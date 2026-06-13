@@ -60,10 +60,11 @@
 .btn-home:focus,
 .btn-tema:hover,
 .btn-tema:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
     transform: scale(1.05);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.35);
 }
 
 .nombre-aplicacion {
@@ -214,7 +215,7 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
-    color: var(--texto-principal);
+    color: var(--color-acento);
     transition: color 0.3s ease;
 }
 
@@ -246,11 +247,11 @@
 
 .btn-guardar-ticket:hover,
 .btn-guardar-ticket:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
     transform: scale(1.06);
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
+    box-shadow: 0 6px 18px rgba(255, 144, 0, 0.45);
 }
 
 .btn-guardar-ticket:active {
@@ -334,7 +335,7 @@
 }
 
 /* Adaptabilidad Responsiva */
-@media (max-width: 767.98px) {
+@media (max-width: 1023.98px) {
     .pagina-ticket {
         padding: 10px;
         overflow: auto;
@@ -371,6 +372,9 @@
     
     .autores {
         text-align: center;
+        white-space: normal;
+        font-size: 0.85rem;
+        margin-top: 4px;
     }
     
     .cuerpo-ticket {
@@ -410,5 +414,11 @@
         height: 48px;
         border-radius: 12px;
         font-size: 1.15rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .contenido-barra-superior {
+        padding: 0 24px !important;
     }
 }

@@ -1,15 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
 .pagina-bienvenida {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 12px 30px;
 }
 
 .marco-aplicacion {
-    height: calc(100vh - 24px);
-    overflow: hidden;
+    min-height: calc(100vh - 24px);
+    height: auto;
+    overflow: visible;
     border: 1.5px solid var(--color-linea);
     border-radius: 22px;
     background: var(--fondo-oscuro);
@@ -33,7 +36,8 @@
 .acceso-administradores {
     width: 260px;
     max-width: 100%;
-    min-height: 58px;
+    height: 58px;
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -41,16 +45,19 @@
     border-radius: 16px;
     color: var(--texto-principal);
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1;
     white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .acceso-administradores:hover,
 .acceso-administradores:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
 }
 
 .nombre-aplicacion {
@@ -59,9 +66,9 @@
     transform: translateX(-50%);
     color: var(--texto-principal);
     font-size: clamp(1.6rem, 2vw, 2.15rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1;
-    letter-spacing: 0;
+    letter-spacing: 1.5px;
     white-space: nowrap;
 }
 
@@ -77,7 +84,8 @@
 }
 
 .contenido-bienvenida {
-    height: calc(100% - 96px);
+    min-height: calc(100vh - 96px - 24px - 24px);
+    height: auto;
     padding: clamp(58px, 7vh, 72px) 20px 28px;
 }
 
@@ -85,7 +93,7 @@
     margin: 0;
     color: var(--texto-principal);
     font-size: clamp(2.25rem, 3.1vw, 3rem);
-    font-weight: 400;
+    font-weight: 700;
     letter-spacing: 0;
 }
 
@@ -106,6 +114,7 @@
     font-size: 0.95rem;
     font-weight: 400;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .campo-nombre::placeholder {
@@ -116,8 +125,9 @@
 .campo-nombre:focus {
     background: transparent;
     color: var(--texto-principal);
-    border-color: var(--color-linea);
-    box-shadow: 0 0 0 0.2rem rgba(214, 214, 214, 0.14);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
+    outline: none;
 }
 
 .boton-continuar {
@@ -128,32 +138,81 @@
     background: var(--boton-oscuro);
     color: var(--texto-principal);
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .boton-continuar:hover,
 .boton-continuar:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
 }
 
-@media (max-width: 1199.98px) {
+.btn-tema {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.35rem;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.btn-tema:hover,
+.btn-tema:focus {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.3);
+    transform: scale(1.05);
+}
+
+@media (max-width: 1023.98px) {
     .contenido-barra-bienvenida {
         flex-direction: column;
         justify-content: center;
-        gap: 10px;
-        padding: 14px 24px;
+        gap: 8px;
+        padding: 12px 16px;
+        height: auto;
     }
 
     .barra-bienvenida {
-        height: 174px;
+        height: auto;
+        border-bottom: 1.5px solid var(--color-linea);
+    }
+
+    .seccion-izquierda {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        width: 100% !important;
     }
 
     .acceso-administradores {
-        width: min(100%, 280px);
-        min-height: 48px;
-        font-size: 1.1rem;
+        width: auto !important;
+        flex-grow: 1 !important;
+        max-width: 200px !important;
+        height: 48px !important;
+        font-size: 0.95rem !important;
+        padding: 0 8px !important;
+    }
+
+    .btn-tema {
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        font-size: 1.15rem !important;
+        flex-shrink: 0 !important;
     }
 
     .nombre-aplicacion {
@@ -162,12 +221,15 @@
     }
 
     .autores {
-        font-size: 1rem;
+        font-size: 0.85rem;
         text-align: center;
+        white-space: normal;
+        margin-top: 4px;
     }
 
     .contenido-bienvenida {
-        height: calc(100% - 174px);
+        height: auto;
+        min-height: auto;
         padding-top: 38px;
     }
 }
@@ -178,7 +240,8 @@
     }
 
     .marco-aplicacion {
-        height: calc(100vh - 20px);
+        height: auto;
+        min-height: calc(100vh - 20px);
         border-radius: 16px;
     }
 
@@ -201,38 +264,54 @@
     }
 
     .boton-continuar {
-        height: 54px;
+        height: 48px;
     }
 }
 
-.btn-tema {
-    width: 58px;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid var(--color-linea);
-    border-radius: 16px;
-    color: var(--texto-principal);
-    font-size: 1.35rem;
-    background: transparent;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    cursor: pointer;
+@media (min-width: 768px) {
+    .formulario-bienvenida {
+        flex-direction: row !important;
+        width: 100% !important;
+        max-width: 560px !important;
+        gap: 20px !important;
+        margin-top: clamp(40px, 6vh, 60px) !important;
+    }
+
+    .campo-nombre {
+        width: 320px !important;
+        height: 58px !important;
+        font-size: 1.1rem !important;
+    }
+
+    .boton-continuar {
+        width: 220px !important;
+        height: 58px !important;
+        font-size: 1.1rem !important;
+    }
 }
 
-.btn-tema:hover,
-.btn-tema:focus {
-    background: var(--texto-principal);
-    color: var(--fondo-oscuro);
-    border-color: var(--texto-principal);
-    transform: scale(1.05);
-}
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .contenido-barra-bienvenida {
+        padding: 0 24px !important;
+    }
 
-@media (max-width: 575.98px) {
+    .acceso-administradores {
+        width: 200px !important;
+        height: 48px !important;
+        font-size: 1.05rem !important;
+        border-radius: 12px !important;
+    }
+
     .btn-tema {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        font-size: 1.15rem;
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        font-size: 1.15rem !important;
+    }
+
+    .autores {
+        font-size: 0.9rem !important;
+        white-space: normal !important;
+        max-width: 220px !important;
     }
 }

@@ -13,8 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnHome = document.getElementById("btnHome");
     const btnGuardarTicket = document.getElementById("btnGuardarTicket");
-    const btnDescargarTicket = document.getElementById("btnDescargarTicket");
-    const btnSalir = document.getElementById("btnSalir");
     const btnTema = document.getElementById("btnTema");
     const iconTema = btnTema.querySelector("i");
 
@@ -77,22 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketItemsContainer.appendChild(itemRow);
     });
 
-    btnDescargarTicket.addEventListener("click", () => {
+    btnGuardarTicket.addEventListener("click", () => {
         window.print();
-    });
-
-    btnSalir.addEventListener("click", () => {
-        sessionStorage.removeItem("nombreCliente");
-        sessionStorage.removeItem("ultimoTicket");
-        sessionStorage.removeItem("carrito");
-        window.location.href = "../bienvenida/bienvenida.html";
     });
 
     btnHome.addEventListener("click", (e) => {
         e.preventDefault();
-        localStorage.removeItem("nombreCliente");
-        localStorage.removeItem("ultimoTicket");
-        localStorage.removeItem("carrito");
+        sessionStorage.removeItem("nombreCliente");
+        sessionStorage.removeItem("ultimoTicket");
+        sessionStorage.removeItem("carrito");
         window.location.href = "../bienvenida/bienvenida.html";
     });
 });

@@ -4,6 +4,7 @@
     --texto-principal: #d6d6d6;
     --texto-secundario: #a8a8a8;
     --boton-oscuro: #202326;
+    --color-acento: #ff9000;
 }
 
 body.light-mode {
@@ -12,6 +13,7 @@ body.light-mode {
     --texto-principal: #2e3440;
     --texto-secundario: #4c566a;
     --boton-oscuro: #d8dee9;
+    --color-acento: #e67e00;
 }
 
 * {
