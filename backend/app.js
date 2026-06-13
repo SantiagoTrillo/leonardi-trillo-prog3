@@ -1,29 +1,28 @@
-import ejs from "ejs"
 import cors from "cors"
 import express from "express"
 import path from "path"
 import { fileURLToPath } from "url"
-import { rutaProducto } from './routes/api/productos.routes.js'
+
+import rutasAdministrador from "./routes/views/administrador.routes.js"
+// import rutaProductos from "./routes/api/productos.routes.js"
+// import rutaAutenticacion from "./routes/api/autenticacion.routes.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
 const app = express()
-const PUERTO = process.env.PORT
+const PUERTO = process.env.PORT || 3000
 
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
-app.use(express.static(path.join(__dirname, "public")))
+
+app.use(express.static(path.join(__dirname, "../frontend")))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use("/api", rutaProducto);
-app.use("/admin")
-
-// rutaProducto.get("/test", (req, res) => {
-//     console.log("test");
-//     res.send("test");
-// });
-
-export default rutaProducto;
+app.use("/admin", rutasAdministrador)
+// app.use("api/", rutaProductos, rutaAutenticacion)
 
 app.listen(PUERTO, () => {
     console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
