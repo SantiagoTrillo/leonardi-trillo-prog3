@@ -1,0 +1,348 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+    --fondo-oscuro: #111;
+    --color-linea: #c9c9c9;
+    --texto-principal: #d6d6d6;
+    --texto-secundario: #a8a8a8;
+    --boton-oscuro: #202326;
+    --color-acento: #ff9000;
+}
+
+body.light-mode {
+    --fondo-oscuro: #f5f6f8;
+    --color-linea: #2e3440;
+    --texto-principal: #2e3440;
+    --texto-secundario: #4c566a;
+    --boton-oscuro: #d8dee9;
+    --color-acento: #e67e00;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Inter", Arial, sans-serif;
+    background: var(--fondo-oscuro);
+    color: var(--texto-principal);
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 100%;
+    min-height: 100vh;
+    padding: 12px 30px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 575.98px) {
+    body {
+        padding: 10px;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+.marco-aplicacion {
+    min-height: calc(100vh - 24px);
+    height: auto;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 22px;
+    background: var(--fondo-oscuro);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+@media (max-width: 575.98px) {
+    .marco-aplicacion {
+        min-height: calc(100vh - 20px);
+        border-radius: 16px;
+    }
+}
+
+.barra-superior,
+.barra-bienvenida {
+    height: 96px;
+    border-bottom: 1.5px solid var(--color-linea);
+    transition: border-color 0.3s ease;
+}
+
+.contenido-barra-superior,
+.contenido-barra-bienvenida {
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 52px;
+}
+
+.seccion-izquierda {
+    width: 260px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-home,
+.btn-tema {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.35rem;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.btn-home:hover,
+.btn-home:focus,
+.btn-tema:hover,
+.btn-tema:focus {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.nombre-aplicacion {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--texto-principal);
+    font-size: clamp(1.6rem, 2vw, 2.15rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+}
+
+.autores {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.seccion-derecha {
+    width: 260px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.acceso-administradores {
+    width: 260px;
+    max-width: 100%;
+    height: 58px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    color: var(--texto-principal);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.acceso-administradores:hover,
+.acceso-administradores:focus {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
+}
+
+.contenido-bienvenida {
+    min-height: calc(100vh - 96px - 24px - 24px);
+    height: auto;
+    padding: clamp(58px, 7vh, 72px) 20px 28px;
+}
+
+.titulo-bienvenida {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(2.25rem, 3.1vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.campo-nombre {
+    width: 230px;
+    height: 50px;
+    padding: 0 18px;
+    border: 1.5px solid #777;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.campo-nombre::placeholder {
+    color: var(--texto-secundario);
+    opacity: 1;
+}
+
+.campo-nombre:focus {
+    background: transparent;
+    color: var(--texto-principal);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
+    outline: none;
+}
+
+.boton-continuar {
+    width: 245px;
+    height: 58px;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 12px;
+    background: var(--boton-oscuro);
+    color: var(--texto-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.boton-continuar:hover,
+.boton-continuar:focus {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
+}
+
+@media (max-width: 1023.98px) {
+    .barra-superior,
+    .barra-bienvenida {
+        height: auto;
+        padding: 16px 0;
+    }
+
+    .contenido-barra-superior,
+    .contenido-barra-bienvenida {
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        height: auto;
+    }
+
+    .seccion-izquierda {
+        width: auto !important;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .acceso-administradores {
+        width: auto !important;
+        flex-grow: 1 !important;
+        max-width: 200px !important;
+        height: 48px !important;
+        font-size: 0.95rem !important;
+        padding: 0 8px !important;
+    }
+
+    .btn-home,
+    .btn-tema {
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+        font-size: 1.15rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .nombre-aplicacion {
+        position: static;
+        transform: none;
+    }
+
+    .seccion-derecha {
+        width: auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    .autores {
+        font-size: 0.85rem !important;
+        text-align: center !important;
+        white-space: normal !important;
+        margin-top: 4px !important;
+        width: 100% !important;
+    }
+
+    .contenido-bienvenida {
+        height: auto;
+        min-height: auto;
+        padding-top: 38px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1199.98px) {
+    .contenido-barra-superior,
+    .contenido-barra-bienvenida {
+        padding: 0 24px !important;
+    }
+
+    .acceso-administradores {
+        width: 200px !important;
+        height: 48px !important;
+        font-size: 1.05rem !important;
+        border-radius: 12px !important;
+    }
+
+    .btn-home,
+    .btn-tema {
+        width: 48px !important;
+        height: 48px !important;
+        border-radius: 12px !important;
+    }
+
+    .autores {
+        font-size: 0.9rem !important;
+        white-space: normal !important;
+        max-width: 220px !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .nombre-aplicacion {
+        font-size: 1.55rem;
+    }
+
+    .titulo-bienvenida {
+        font-size: 1.9rem;
+    }
+
+    .campo-nombre,
+    .boton-continuar {
+        width: 100% !important;
+    }
+
+    .boton-continuar {
+        height: 48px !important;
+    }
+}
