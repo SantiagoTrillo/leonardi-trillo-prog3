@@ -1,0 +1,267 @@
+.cuerpo-productos {
+    min-height: calc(100vh - 96px - 24px - 24px);
+    height: auto;
+    overflow: visible;
+}
+
+.panel-izquierdo {
+    width: 260px;
+    padding: 20px;
+    gap: 20px;
+    flex-shrink: 0;
+    align-self: flex-start;
+    height: calc(100vh - 96px - 24px - 24px);
+    overflow-y: auto;
+}
+
+.btn-catalogo {
+    width: 100%;
+    min-height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: transparent;
+    color: var(--texto-secundario);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    white-space: nowrap;
+}
+
+.btn-catalogo:hover {
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    background: rgba(255, 144, 0, 0.03);
+}
+
+.btn-catalogo.active {
+    background: rgba(255, 144, 0, 0.08);
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.15);
+}
+
+.btn-cargar-producto {
+    min-height: 58px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: var(--boton-oscuro);
+    color: var(--texto-principal);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-cargar-producto:hover {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
+}
+
+.panel-central {
+    padding: 30px;
+    border-left: 1.5px solid var(--color-linea);
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-seccion-admin {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.lista-administracion {
+    max-height: calc(100vh - 96px - 24px - 24px - 110px);
+    overflow-y: auto;
+    padding: 6px 10px 6px 6px;
+}
+
+.lista-administracion::-webkit-scrollbar {
+    width: 6px;
+}
+
+.lista-administracion::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lista-administracion::-webkit-scrollbar-thumb {
+    background: var(--color-linea);
+    border-radius: 4px;
+}
+
+.lista-administracion::-webkit-scrollbar-thumb:hover {
+    background: var(--color-acento);
+}
+
+.item-producto-admin {
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.item-producto-admin:hover {
+    border-color: var(--color-acento);
+    box-shadow: 0 4px 15px rgba(255, 144, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.item-producto-admin.inactivo {
+    opacity: 0.55;
+    background: rgba(0, 0, 0, 0.15);
+    filter: grayscale(80%);
+}
+
+.item-producto-admin.inactivo:hover {
+    border-color: var(--color-linea);
+    box-shadow: none;
+    transform: none;
+}
+
+.poster-admin {
+    width: 70px;
+    height: 95px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--color-linea);
+}
+
+.detalle-info-admin {
+    font-size: 1rem;
+    color: var(--texto-principal);
+}
+
+.detalle-info-admin strong {
+    color: var(--texto-secundario);
+}
+
+.badge-estado {
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.badge-estado.state-activo {
+    background: rgba(46, 204, 113, 0.12);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.badge-estado.state-inactivo {
+    background: rgba(149, 165, 166, 0.12);
+    color: #95a5a6;
+    border: 1px solid rgba(149, 165, 166, 0.3);
+}
+
+.btn-accion-admin {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 12px;
+    color: var(--texto-principal);
+    font-size: 1.15rem;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.btn-editar-admin:hover,
+.btn-editar-admin:focus {
+    color: #fff !important;
+    background: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 12px rgba(255, 144, 0, 0.4);
+    transform: scale(1.05);
+}
+
+.btn-borrar-admin:hover,
+.btn-borrar-admin:focus {
+    color: #fff !important;
+    background: #e74c3c;
+    border-color: #e74c3c;
+    box-shadow: 0 0 12px rgba(231, 76, 60, 0.4);
+    transform: scale(1.05);
+}
+
+@media (max-width: 1023.98px) {
+    .cuerpo-productos {
+        flex-direction: column !important;
+    }
+
+    .panel-izquierdo {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: auto !important;
+        gap: 16px !important;
+        border-bottom: 1.5px solid var(--color-linea);
+        align-self: center;
+    }
+
+    .panel-central {
+        border-left: none !important;
+        border-top: 1.5px solid var(--color-linea) !important;
+        padding: 20px 10px !important;
+    }
+
+    .lista-administracion {
+        max-height: 500px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 1023.98px) {
+    .panel-izquierdo {
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .panel-izquierdo .d-flex {
+        flex-direction: row !important;
+        width: auto !important;
+        flex-grow: 1 !important;
+    }
+
+    .btn-catalogo {
+        width: 48% !important;
+    }
+
+    .btn-cargar-producto {
+        width: 200px !important;
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width: 479.98px) {
+    .item-producto-admin {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px !important;
+    }
+
+    .acciones-admin {
+        align-self: center !important;
+        width: 100% !important;
+        justify-content: center !important;
+        border-top: 1px solid rgba(201, 201, 201, 0.1);
+        padding-top: 10px;
+    }
+}
