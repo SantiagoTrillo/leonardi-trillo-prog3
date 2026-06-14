@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2026 a las 08:51:32
+-- Tiempo de generación: 14-06-2026 a las 23:03:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,6 +35,16 @@ CREATE TABLE `productos` (
   `imagen` varchar(500) NOT NULL,
   `estado` enum('activo','inactivo') NOT NULL DEFAULT 'activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `categoria`, `titulo`, `precio`, `imagen`, `estado`) VALUES
+(1, 'pelicula', 'Interestelar', 8999.99, 'https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg', 'activo'),
+(2, 'pelicula', 'Inception', 7999.99, 'https://upload.wikimedia.org/wikipedia/en/7/7f/Inception_ver3.jpg', 'activo'),
+(3, 'pelicula', 'The Matrix', 6999.99, 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg', 'activo'),
+(4, 'pelicula', 'Avatar', 8499.99, 'https://upload.wikimedia.org/wikipedia/en/b/b0/Avatar-Teaser-Poster.jpg', 'activo');
 
 -- --------------------------------------------------------
 
@@ -94,7 +104,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

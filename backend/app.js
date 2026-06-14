@@ -1,7 +1,7 @@
 import cors from "cors"
 import express, { Router } from "express"
 import path from "path"
-import { nextTick } from "process"
+//import { nextTick } from "process" // Ni idea esto
 import { fileURLToPath } from "url"
 
 import rutasAdministrador from "./routes/administrador.routes.js"
@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const PUERTO = process.env.PORT || 3000
+const SERVER_PORT = process.env.SERVER_PORT || 3000
 
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
@@ -26,6 +26,6 @@ app.use(cors());
 
 app.use("/admin", rutasAdministrador)
 
-app.listen(PUERTO, () => {
-    console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
+app.listen(SERVER_PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${SERVER_PORT}`);
 });

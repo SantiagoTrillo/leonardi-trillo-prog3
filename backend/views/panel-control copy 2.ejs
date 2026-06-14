@@ -16,23 +16,19 @@
                     <button class="btn-catalogo active" id="btnSeries" type="button">Catálogo de series</button>
                     <button class="btn-catalogo" id="btnPeliculas" type="button">Catálogo de películas</button>
                 </div>
-                <a href="http://localhost:3000/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
+                <a href="/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
             </aside>
             <main class="panel-central d-flex flex-column flex-grow-1 p-4">
                 <div class="cabecera-panel-central text-center mb-4">
                     <h1 class="titulo-seccion-admin">Menú de administración de productos</h1>
                 </div>
                 <div class="lista-administracion flex-grow-1 overflow-auto d-flex flex-column gap-3" id="listaAdministracion">
+         
                     <%console.log("ENTRO")%>
+                    <%console.log(productos)%>
 
-                    <!-- Desanida el array -->
-                    <% const productosArray = Array.isArray(productos) && productos[0] ? productos[0] : productos; %>
-                    
-                    <%console.log(productosArray)%>
-                    
-                    <!-- Ahora renderiza -->
-                    <% productosArray.forEach(producto => { %>
-                        <div class="item-producto-admin d-flex align-items-center justify-content-between p-3 tipo-<%= producto.categoria %> <%= producto.estado === 'inactivo' ? 'inactivo' : '' %>" data-id="<%= producto.id %>" data-tipo="<%= producto.categoria %>" data-estado="<%= producto.estado %>">
+                    <% productos.forEach(producto => { %>
+                        <div class="item-producto-admin d-flex align-items-center justify-content-between p-3 tipo-<%= producto.tipo %> <%= producto.estado === 'inactivo' ? 'inactivo' : '' %>" data-id="<%= producto.id %>" data-tipo="<%= producto.tipo %>" data-estado="<%= producto.estado %>">
                             <div class="info-izquierda-admin d-flex align-items-center gap-3">
                                 <div class="wrapper-poster-admin">
                                     <img src="<%= producto.imagen %>" alt="<%= producto.titulo %>" class="poster-admin">
@@ -52,4 +48,3 @@
                             </div>
                         </div>
                     <% }); %>
-        
