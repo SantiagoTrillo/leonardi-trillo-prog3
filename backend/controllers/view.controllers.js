@@ -1,12 +1,3 @@
-import express from "express";
-
-const router = express.Router();
-
-router.get("/login", (req, res) => {
-    res.render("inicio-sesion");
-});
-
-// TODO: Estos datos son únicamente de prueba y deberán ser removidos en el futuro cuando se conecte con la base de datos real.
 const productosPrueba = [
     {
         id: "s1",
@@ -57,43 +48,30 @@ const productosPrueba = [
         estado: "activo"
     }
 ];
+export const loginView = (req, res) => {
+    res.render('inicio-sesion', {
+        titulo: 'Iniciar Sesion'
+    })
+}
+export const dashboardView = (req, res) => {
 
-router.get("/dashboard", (req, res) => {
-    res.render("panel-control", { productos: productosPrueba });
-});
+    res.render('panel-control', {
+        titulo: 'Panel de Control',
+        productos: productosPrueba
+    })
+}
+export const altaProductoView = (req, res) => {
+    res.render('alta-producto', {
+        titulo: 'Alta de Producto'
+    })
+} 
+export const modificarProductoView = (req, res) => {
+    const { id } = req.query;
 
-router.get("/alta-producto", (req, res) => {
-    res.render("alta-producto");
-});
-
-router.post("/alta-producto", (req, res) => {
-    // TODO: En el futuro aquí se implementará la lógica para guardar el producto en la base de datos real.
-    res.redirect("/admin/dashboard");
-});
-
-router.get("/modificar-producto", (req, res) => {
-    const id = req.query.id;
     const product = productosPrueba.find(p => p.id === id);
-    if (!product) {
-        return res.redirect("/admin/dashboard");
-    }
-    res.render("modificar-producto", { product });
-});
 
-router.post("/modificar-producto", (req, res) => {
-    const { id, tipo, titulo, precio, imagen, estado } = req.body;
-    const index = productosPrueba.findIndex(p => p.id === id);
-    if (index !== -1) {
-        productosPrueba[index] = {
-            id,
-            titulo,
-            precio: parseFloat(precio) || 0,
-            imagen,
-            tipo,
-            estado
-        };
-    }
-    res.redirect("/admin/dashboard");
-});
-
-export default router;
+    res.render('modificar-producto', {
+        titulo: 'Modificar Producto',
+        product
+    });
+}
