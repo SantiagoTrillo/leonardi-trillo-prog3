@@ -265,3 +265,45 @@
         padding-top: 10px;
     }
 }
+
+/* Sobrescribir confirmación del modal para desactivar (rojo) */
+.boton-modal-confirmar:hover,
+.boton-modal-confirmar:focus {
+    background: #e74c3c !important;
+    border-color: #e74c3c !important;
+    color: #fff !important;
+    box-shadow: 0 0 14px rgba(231, 76, 60, 0.45) !important;
+    transform: scale(1.02);
+}
+
+.divisor-productos-inactivos {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.divisor-productos-inactivos::before,
+.divisor-productos-inactivos::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1.5px dashed rgba(255, 144, 0, 0.45);
+}
+
+.divisor-productos-inactivos:not(:empty)::before {
+    margin-right: 15px;
+}
+
+.divisor-productos-inactivos:not(:empty)::after {
+    margin-left: 15px;
+}
+
+.texto-divisor-inactivos {
+    color: var(--color-acento);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}

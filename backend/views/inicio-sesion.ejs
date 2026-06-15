@@ -1,29 +1,23 @@
-<%- include('partials/header') %>
+<%- include('partials/head') %>
+<link rel="stylesheet" href="../inicio-sesion/inicio-sesion.css">
 <script src="/inicio-sesion/inicio-sesion.js" defer></script>
-
 <body class="pagina-bienvenida">
     <div class="marco-aplicacion">
-        <nav class="barra-bienvenida">
-            <div class="contenido-barra-bienvenida">
-                <div class="seccion-izquierda d-flex align-items-center gap-3">
-                    <a class="btn btn-outline-light acceso-administradores" id="btnAccesoUsuarios" href="/bienvenida/bienvenida.html">Acceso Usuarios</a>
-                    <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button"><i class="fa-solid fa-moon"></i></button>
-                </div>
-                <span class="nombre-aplicacion">CineStream</span>
-                <p class="autores">Hecho por: Santiago Leonardi y Santiago Trillo</p>
-            </div>
-        </nav>
-
-       
-
+        <%- include('partials/nav-inicio-sesion') %>
         <main class="contenido-bienvenida d-flex flex-column align-items-center text-center">
             <h1 class="titulo-bienvenida">Panel de Administrador</h1>
-            <form id="formularioLogin" class="formulario-login d-flex flex-column align-items-center">
+            <form id="formularioLogin" class="formulario-login d-flex flex-column align-items-center" method="POST" action="/admin/login">
                 <label class="visually-hidden" for="emailAdmin">Correo</label>
                 <input class="form-control campo-nombre" type="email" id="emailAdmin" name="email" placeholder="Correo" autocomplete="email" required>
                 <label class="visually-hidden" for="passwordAdmin">Contraseña</label>
                 <input class="form-control campo-nombre" type="password" id="passwordAdmin" name="password" placeholder="Contraseña" autocomplete="current-password" required>
-                <button class="btn btn-dark boton-continuar" type="submit">Iniciar sesión</button>
+                <button class="btn btn-dark boton-continuar" type="submit">Ingresar</button>
+                <% if (error) { %>
+                    <span id="mensajeError" class="text-danger mt-2" style="font-size: 0.85rem; font-weight: 500; display: block; width: 100%; text-align: center;">
+                        Credenciales incorrectas
+                    </span>
+                <% } %>
+                <button class="btn btn-dark boton-continuar mt-2" type="button" id="btnInicioRapido">Inicio rápido</button>
             </form>
         </main>
     </div>

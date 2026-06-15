@@ -1,38 +1,39 @@
-<%- include('partials/header') %>
-
+<%- include('partials/head') %>
 <link rel="stylesheet" href="/panel-control/panel-control.css">
 <script src="/panel-control/panel-control.js" defer></script>
-
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
-
-        <%- include('partials/nav.ejs') %>
-
-        
-
+        <%- include('partials/nav') %>
         <div class="cuerpo-productos d-flex flex-grow-1">
             <aside class="panel-izquierdo d-flex flex-column align-items-center justify-content-between p-3">
                 <div class="d-flex flex-column w-100 gap-3">
                     <button class="btn-catalogo active" id="btnSeries" type="button">Catálogo de series</button>
                     <button class="btn-catalogo" id="btnPeliculas" type="button">Catálogo de películas</button>
                 </div>
-                <a href="http://localhost:3000/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
+                <a href="/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
             </aside>
             <main class="panel-central d-flex flex-column flex-grow-1 p-4">
-                <div class="cabecera-panel-central text-center mb-4">
-                    <h1 class="titulo-seccion-admin">Menú de administración de productos</h1>
+                <div class="cabecera-panel-central text-center mb-4"><h1 class="titulo-seccion-admin">Menú de administración de productos</h1>
                 </div>
                 <div class="lista-administracion flex-grow-1 overflow-auto d-flex flex-column gap-3" id="listaAdministracion">
-                    <%console.log("ENTRO")%>
-
-                    <!-- Desanida el array -->
-                    <% const productosArray = Array.isArray(productos) && productos[0] ? productos[0] : productos; %>
-                    
-                    <%console.log(productosArray)%>
-                    
-                    <!-- Ahora renderiza -->
-                    <% productosArray.forEach(producto => { %>
-                        <div class="item-producto-admin d-flex align-items-center justify-content-between p-3 tipo-<%= producto.categoria %> <%= producto.estado === 'inactivo' ? 'inactivo' : '' %>" data-id="<%= producto.id %>" data-tipo="<%= producto.categoria %>" data-estado="<%= producto.estado %>">
+                    <% 
+                    const productosOrdenados = productos.sort((a, b) => {
+                        if (a.estado === 'activo' && b.estado !== 'activo') return -1;
+                        if (a.estado !== 'activo' && b.estado === 'activo') return 1;
+                        return a.titulo.localeCompare(b.titulo);
+                    });
+                    let mostroSeparador = false;
+                    productosOrdenados.forEach(function(producto) { 
+                        if (producto.estado === 'inactivo' && !mostroSeparador) {
+                            mostroSeparador = true;
+                    %>
+                            <div class="divisor-productos-inactivos" id="divisorInactivos">
+                                <span class="texto-divisor-inactivos">Productos Inactivos</span>
+                            </div>
+                    <% 
+                        } 
+                    %>
+                        <div class="item-producto-admin d-flex align-items-center justify-content-between p-3 tipo-<%= producto.tipo %> <%= producto.estado === 'inactivo' ? 'inactivo' : '' %>" data-id="<%= producto.id %>" data-tipo="<%= producto.tipo %>" data-estado="<%= producto.estado %>">
                             <div class="info-izquierda-admin d-flex align-items-center gap-3">
                                 <div class="wrapper-poster-admin">
                                     <img src="<%= producto.imagen %>" alt="<%= producto.titulo %>" class="poster-admin">
@@ -40,16 +41,33 @@
                                 <div class="detalle-info-admin d-flex flex-column gap-1">
                                     <div><strong>Título:</strong> <%= producto.titulo %></div>
                                     <div><strong>Precio:</strong> $<%= producto.precio %></div>
+                                    <div><strong>Estado:</strong> <span class="badge-estado state-<%= producto.estado %>"><%= producto.estado %></span></div>
                                 </div>
                             </div>
                             <div class="acciones-admin d-flex gap-3 align-items-center">
-                                <a href="/admin/modificar-producto?id=<%= producto.id %>" class="btn-accion-admin btn-editar-admin" aria-label="Editar producto">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </a>
-                                <button class="btn-accion-admin btn-borrar-admin <%= producto.estado === 'inactivo' ? 'd-none' : '' %>" data-id="<%= producto.id %>" aria-label="Borrar producto" type="button">
-                                    <i class="fa-solid fa-trash-can"></i>
+                                <a href="/admin/modificar-producto?id=<%= producto.id %>" class="btn-accion-admin btn-editar-admin" aria-label="Editar producto"><i class="fa-solid fa-pencil"></i></a>
+                                <button class="btn-accion-admin btn-borrar-admin <%= producto.estado === 'inactivo' ? 'd-none' : '' %>" data-id="<%= producto.id %>" aria-label="Borrar producto" type="button"><i class="fa-solid fa-trash-can"></i>
                                 </button>
                             </div>
                         </div>
                     <% }); %>
-        
+                    <% if (!mostroSeparador) { %>
+                        <div class="divisor-productos-inactivos d-none" id="divisorInactivos">
+                            <span class="texto-divisor-inactivos">Productos Inactivos</span>
+                        </div>
+                    <% } %>
+                </div>
+            </main>
+        </div>
+    </div>
+    <div class="superposicion-modal d-none" id="modalDesactivar">
+        <div class="tarjeta-modal">
+            <p class="texto-modal">¿Seguro que desea desactivar el producto?</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-dark boton-modal-confirmar" id="botonConfirmarDesactivar" type="button">Confirmar</button>
+                <button class="btn btn-outline-light boton-modal-cancelar" id="botonCancelarDesactivar" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

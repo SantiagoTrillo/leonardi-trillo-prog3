@@ -346,3 +346,109 @@ a {
         height: 48px !important;
     }
 }
+
+.validador-invisible {
+    opacity: 0 !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 1px !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+}
+
+/* Estilos de modal (compartidos) */
+.superposicion-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    transition: opacity 0.3s ease;
+}
+
+.tarjeta-modal {
+    border: 1.5px solid var(--color-linea);
+    border-radius: 22px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 30px 40px;
+    width: min(90%, 420px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: aparecerModal 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.texto-modal {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--texto-principal);
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.boton-modal-confirmar {
+    min-height: 50px;
+    min-width: 140px;
+    border: 1.5px solid var(--color-linea) !important;
+    border-radius: 12px !important;
+    background: var(--boton-oscuro) !important;
+    color: var(--texto-principal) !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+}
+
+.boton-modal-confirmar:hover,
+.boton-modal-confirmar:focus {
+    background: var(--color-acento) !important;
+    border-color: var(--color-acento) !important;
+    color: #fff !important;
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45) !important;
+    transform: scale(1.02);
+}
+
+.boton-modal-cancelar {
+    min-height: 50px;
+    min-width: 140px;
+    border: 1.5px solid var(--color-linea) !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    color: var(--texto-secundario) !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease !important;
+}
+
+.boton-modal-cancelar:hover,
+.boton-modal-cancelar:focus {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: var(--texto-principal) !important;
+    border-color: var(--texto-secundario) !important;
+    transform: scale(1.02);
+}
+
+@keyframes aparecerModal {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

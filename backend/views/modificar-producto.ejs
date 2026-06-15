@@ -1,27 +1,9 @@
-<%- include('partials/header') %>
-
+<%- include('partials/head') %>
 <link rel="stylesheet" href="/modificar-producto/modificar-producto.css">
-<link rel="stylesheet" href="/alta-producto/alta-producto.css">
 <script src="/modificar-producto/modificar-producto.js" defer></script>
-
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
-        <nav class="barra-superior">
-            <div class="contenido-barra-superior">
-                <div class="seccion-izquierda d-flex align-items-center gap-3">
-                    <a class="btn-home" href="/bienvenida/bienvenida.html" id="btnHome" aria-label="Ir al inicio">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                    <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-                <span class="nombre-aplicacion">CineStream</span>
-                <div class="seccion-derecha">
-                    <p class="autores">Hecho por: Santiago Leonardi y Santiago Trillo</p>
-                </div>
-            </div>
-        </nav>
+        <%- include('partials/nav') %>
         <main class="contenido-formulario d-flex flex-grow-1 align-items-center justify-content-center p-4">
             <div class="card-formulario-admin">
                 <h1 class="titulo-alta-admin text-center">Modificación de producto</h1>
@@ -38,7 +20,7 @@
                                 <li><button class="dropdown-item option-categoria" type="button" data-value="pelicula">Película</button></li>
                                 <li><button class="dropdown-item option-categoria" type="button" data-value="serie">Serie</button></li>
                             </ul>
-                            <input type="hidden" id="inputCategoria" name="tipo" value="<%= product.tipo %>" required>
+                            <input type="text" id="inputCategoria" name="tipo" value="<%= product.tipo %>" class="validador-invisible" required>
                         </div>
                     </div>
                     <div class="campo-fila-admin">
@@ -74,6 +56,15 @@
                 </form>
             </div>
         </main>
+    </div>
+    <div class="superposicion-modal d-none" id="modalActivar">
+        <div class="tarjeta-modal">
+            <p class="texto-modal">¿Seguro que desea activar el producto?</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-dark boton-modal-confirmar" id="botonConfirmarActivar" type="button">Confirmar</button>
+                <button class="btn btn-outline-light boton-modal-cancelar" id="botonCancelarActivar" type="button">Cancelar</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

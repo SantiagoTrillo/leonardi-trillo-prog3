@@ -1,29 +1,14 @@
-<%- include('partials/header') %>
+<%- include('partials/head') %>
 <link rel="stylesheet" href="/alta-producto/alta-producto.css">
 <script src="/alta-producto/alta-producto.js" defer></script>
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
-        <nav class="barra-superior">
-            <div class="contenido-barra-superior">
-                <div class="seccion-izquierda d-flex align-items-center gap-3">
-                    <a class="btn-home" href="/bienvenida/bienvenida.html" id="btnHome" aria-label="Ir al inicio">
-                        <i class="fa-solid fa-house"></i>
-                    </a>
-                    <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </div>
-                <span class="nombre-aplicacion">CineStream</span>
-                <div class="seccion-derecha">
-                    <p class="autores">Hecho por: Santiago Leonardi y Santiago Trillo</p>
-                </div>
-            </div>
-        </nav>
+        <%- include('partials/nav') %>
         <main class="contenido-formulario d-flex flex-grow-1 align-items-center justify-content-center p-4">
             <div class="card-formulario-admin">
                 <h1 class="titulo-alta-admin text-center">Alta de producto</h1>
                 <div class="divider-admin"></div>
-                <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/alta-producto">
+                <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/alta-producto" enctype="multipart/form-data">
                     <div class="campo-fila-admin">
                         <span class="label-admin">Categoría:</span>
                         <div class="dropdown w-100">
@@ -34,7 +19,7 @@
                                 <li><button class="dropdown-item option-categoria" type="button" data-value="pelicula">Película</button></li>
                                 <li><button class="dropdown-item option-categoria" type="button" data-value="serie">Serie</button></li>
                             </ul>
-                            <input type="hidden" id="inputCategoria" name="tipo" required>
+                            <input type="text" id="inputCategoria" name="tipo" class="validador-invisible" required>
                         </div>
                     </div>
                     <div class="campo-fila-admin">
@@ -47,7 +32,7 @@
                     </div>
                     <div class="campo-fila-admin">
                         <label class="label-admin" for="imagenProducto">Imagen:</label>
-                        <input class="form-control campo-input-admin" type="text" id="imagenProducto" name="imagen" placeholder="URL o ruta de imagen" required>
+                        <input class="form-control campo-input-admin" type="file" id="imagenProducto" name="imagen" accept="image/*" required>
                     </div>
                     <div class="campo-fila-admin">
                         <span class="label-admin">Estado:</span>
