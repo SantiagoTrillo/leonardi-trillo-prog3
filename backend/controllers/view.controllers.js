@@ -49,14 +49,19 @@ export const altaProductoAction = async (req, res) => {
 };
 
 export const modificarProductoAction = async (req, res) => {
-    const { id, tipo, titulo, precio, imagen, estado } = req.body;
+    const { id, tipo, titulo, precio, estado, imagenExistente } = req.body;
 
     if (id && estado && !tipo && !titulo) {
         const resultado = await consultaBD.actualizarEstadoProducto(id, estado);
         return res.json({ success: resultado });
     }
 
-    await consultaBD.actualizarProducto(id, { tipo, titulo, precio: parseFloat(precio) || 0, imagen, estado });
+    let rutaImagen = imagenExistente;
+    if (req.file) {
+        rutaImagen = `/uploads/${req.file.filename}`;
+    }
+
+    await consultaBD.actualizarProducto(id, { tipo, titulo, precio: parseFloat(precio) || 0, imagen: rutaImagen, estado });
     res.redirect("/admin/dashboard");
 };
 

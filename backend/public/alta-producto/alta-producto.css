@@ -36,7 +36,7 @@
 
 .campo-fila-admin {
     display: grid;
-    grid-template-columns: 85px 1fr;
+    grid-template-columns: 85px minmax(0, 1fr);
     gap: 16px;
     align-items: center;
     width: 100%;
@@ -132,9 +132,8 @@
     -moz-appearance: textfield;
 }
 
-/* Estilos para el botón de volver */
+/* Estilos para los botones de acción del formulario */
 .boton-volver {
-    height: 58px;
     border: 1.5px solid var(--color-linea) !important;
     border-radius: 12px !important;
     background: transparent !important;
@@ -148,6 +147,13 @@
     text-decoration: none !important;
 }
 
+.boton-volver,
+.boton-continuar {
+    width: 50% !important;
+    height: 58px !important;
+    margin: 0 !important;
+}
+
 .boton-volver:hover,
 .boton-volver:focus {
     background: rgba(255, 255, 255, 0.05) !important;
@@ -155,3 +161,125 @@
     border-color: var(--texto-secundario) !important;
     transform: scale(1.02);
 }
+
+@media (max-width: 575.98px) {
+    .formulario-alta .d-flex.gap-3 {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+    .boton-volver,
+    .boton-continuar {
+        width: 100% !important;
+    }
+}
+
+/* Estilos personalizados para el contenedor de subida de archivos */
+.custom-file-upload-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-file-upload-label {
+    height: 50px;
+    border: 1.5px solid #777;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--texto-secundario);
+    font-size: 0.95rem;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.custom-file-upload-label:hover {
+    border-color: var(--color-acento);
+    color: var(--texto-principal);
+}
+
+.custom-file-upload-container:focus-within .custom-file-upload-label {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
+    color: var(--texto-principal);
+}
+
+#file-upload-text {
+    flex-grow: 1;
+    width: 0;
+    min-width: 0;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+    font-weight: 400;
+}
+
+#file-upload-text.file-selected {
+    color: var(--texto-principal);
+    font-weight: 500;
+}
+
+.custom-file-upload-btn {
+    background: var(--boton-oscuro);
+    border: 1.5px solid var(--color-linea);
+    color: var(--texto-principal);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.custom-file-upload-label:hover .custom-file-upload-btn {
+    background: var(--color-acento);
+    border-color: var(--color-acento);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 144, 0, 0.4);
+}
+
+/* Tooltip flotante para mostrar el nombre completo del archivo hacia abajo */
+.file-name-tooltip-content {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1.5px solid var(--color-linea);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--texto-principal);
+    font-size: 0.85rem;
+    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    word-break: break-all;
+    white-space: normal;
+    display: none;
+    pointer-events: none;
+    animation: aparecerTooltip 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.file-name-tooltip-content.has-file {
+    display: none;
+}
+
+.custom-file-upload-container:hover .file-name-tooltip-content.has-file {
+    display: block;
+}
+
+@keyframes aparecerTooltip {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+

@@ -4,7 +4,6 @@ import Venta from "../models/venta.model.js";
 import Producto from "../models/producto.model.js";
 import VentaProducto from "../models/venta-producto.model.js";
 
-// Registrar un nuevo usuario administrador
 export const registrarAdministrador = async (req, res) => {
     try {
         const { correo, clave } = req.body;
@@ -13,17 +12,14 @@ export const registrarAdministrador = async (req, res) => {
             return res.status(400).json({ error: "El correo y la clave son obligatorios." });
         }
 
-        // Cifrar la clave
         const salt = await bcrypt.genSalt(10);
         const claveCifrada = await bcrypt.hash(clave, salt);
 
-        // Crear el usuario administrador en la base de datos
         const nuevoUsuario = await Usuario.create({
             correo,
             clave: claveCifrada
         });
 
-        // Retornar el usuario creado (sin exponer la clave)
         return res.status(201).json({
             success: true,
             usuario: {
@@ -40,7 +36,6 @@ export const registrarAdministrador = async (req, res) => {
     }
 };
 
-// Registrar una venta y sus relaciones de productos
 export const registrarVenta = async (req, res) => {
     try {
         const { nombre_cliente, fecha, hora, total, productos } = req.body;
@@ -49,7 +44,6 @@ export const registrarVenta = async (req, res) => {
             return res.status(400).json({ error: "Datos de venta incompletos o inválidos." });
         }
 
-        // Crear registro en la tabla de ventas
         const nuevaVenta = await Venta.create({
             nombre_cliente,
             fecha,
@@ -57,7 +51,6 @@ export const registrarVenta = async (req, res) => {
             total
         });
 
-        // Insertar relaciones en la tabla intermedia
         for (const item of productos) {
             const productoId = item.id || item.producto_id || item;
             const cantidad = item.cantidad || 1;
@@ -83,7 +76,6 @@ export const registrarVenta = async (req, res) => {
     }
 };
 
-// Obtener todas las ventas con sus respectivos productos
 export const obtenerVentas = async (req, res) => {
     try {
         const ventas = await Venta.findAll({
@@ -102,5 +94,37 @@ export const obtenerVentas = async (req, res) => {
     } catch (error) {
         console.error("Error al obtener ventas:", error);
         return res.status(500).json({ error: "Error interno del servidor al obtener ventas." });
+    }
+};
+
+export const obtenerProductosPaginados = async (req, res) => {
+    try {
+        const pagina = parseInt(req.query.pagina) || 1;
+        const limite = parseInt(req.query.limite) || 10;
+        const offset = (pagina - 1) * limite;
+
+        const { count, rows } = await Producto.findAndCountAll({
+            limit: limite,
+            offset: offset,
+            order: [["titulo", "ASC"]]
+        });
+
+        const totalPaginas = Math.ceil(count / limite);
+
+        return res.json({
+            success: true,
+            totalProductos: count,
+            totalPaginas,
+            paginaActual: pagina,
+            limite,
+            productos: rows.map(p => {
+                const raw = p.get({ plain: true });
+                raw.tipo = raw.categoria;
+                return raw;
+            })
+        });
+    } catch (error) {
+        console.error("Error al obtener productos paginados:", error);
+        return res.status(500).json({ error: "Error interno del servidor al obtener productos paginados." });
     }
 };

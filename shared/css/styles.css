@@ -422,6 +422,23 @@ a {
     transform: scale(1.02);
 }
 
+/* Sobrescribir confirmaciones específicas de modales */
+#modalDesactivar .boton-modal-confirmar:hover,
+#modalDesactivar .boton-modal-confirmar:focus {
+    background: #e74c3c !important;
+    border-color: #e74c3c !important;
+    color: #fff !important;
+    box-shadow: 0 0 14px rgba(231, 76, 60, 0.45) !important;
+}
+
+#modalActivar .boton-modal-confirmar:hover,
+#modalActivar .boton-modal-confirmar:focus {
+    background: #2ecc71 !important;
+    border-color: #2ecc71 !important;
+    color: #fff !important;
+    box-shadow: 0 0 14px rgba(46, 204, 113, 0.45) !important;
+}
+
 .boton-modal-cancelar {
     min-height: 50px;
     min-width: 140px;
@@ -450,5 +467,25 @@ a {
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* Modales adaptables a pantallas pequeñas */
+@media (max-width: 480px) {
+    .tarjeta-modal {
+        padding: 24px 20px !important;
+        width: 90% !important;
+        gap: 20px !important;
+    }
+    .tarjeta-modal .d-flex {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 12px !important;
+    }
+    .boton-modal-confirmar,
+    .boton-modal-cancelar {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
     }
 }

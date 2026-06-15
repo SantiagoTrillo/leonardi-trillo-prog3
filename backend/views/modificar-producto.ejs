@@ -8,7 +8,7 @@
             <div class="card-formulario-admin">
                 <h1 class="titulo-alta-admin text-center">Modificación de producto</h1>
                 <div class="divider-admin"></div>
-                <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/modificar-producto">
+                <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/modificar-producto" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<%= product.id %>">
                     <div class="campo-fila-admin">
                         <span class="label-admin">Categoría:</span>
@@ -32,8 +32,16 @@
                         <input class="form-control campo-input-admin" type="number" id="precioProducto" name="precio" value="<%= product.precio %>" placeholder="Precio" min="0" required>
                     </div>
                     <div class="campo-fila-admin">
-                        <label class="label-admin" for="imagenProducto">Imagen:</label>
-                        <input class="form-control campo-input-admin" type="text" id="imagenProducto" name="imagen" value="<%= product.imagen %>" placeholder="URL o ruta de imagen" required>
+                        <span class="label-admin">Imagen:</span>
+                        <div class="custom-file-upload-container">
+                            <label for="imagenProducto" class="custom-file-upload-label d-flex align-items-center justify-content-between m-0">
+                                <span id="file-upload-text" class="text-truncate file-selected"><%= product.imagen %></span>
+                                <span class="custom-file-upload-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Examinar</span>
+                            </label>
+                            <div id="file-name-tooltip" class="file-name-tooltip-content has-file"><%= product.imagen %></div>
+                            <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="validador-invisible">
+                            <input type="hidden" name="imagenExistente" value="<%= product.imagen %>">
+                        </div>
                     </div>
                     <div class="campo-fila-admin">
                         <span class="label-admin">Estado:</span>
@@ -57,14 +65,7 @@
             </div>
         </main>
     </div>
-    <div class="superposicion-modal d-none" id="modalActivar">
-        <div class="tarjeta-modal">
-            <p class="texto-modal">¿Seguro que desea activar el producto?</p>
-            <div class="d-flex justify-content-center gap-3">
-                <button class="btn btn-dark boton-modal-confirmar" id="botonConfirmarActivar" type="button">Confirmar</button>
-                <button class="btn btn-outline-light boton-modal-cancelar" id="botonCancelarActivar" type="button">Cancelar</button>
-            </div>
-        </div>
-    </div>
+    <%- include('partials/modal-confirmacion', { id: 'modalActivar', pregunta: '¿Seguro que desea activar el producto?', idBotonConfirmar: 'botonConfirmarActivar', idBotonCancelar: 'botonCancelarActivar' }) %>
+    <%- include('partials/modal-confirmacion', { id: 'modalDesactivar', pregunta: '¿Seguro que desea desactivar el producto?', idBotonConfirmar: 'botonConfirmarDesactivar', idBotonCancelar: 'botonCancelarDesactivar' }) %>
 </body>
 </html>

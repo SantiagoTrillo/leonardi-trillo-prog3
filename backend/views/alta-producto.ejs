@@ -31,8 +31,15 @@
                         <input class="form-control campo-input-admin" type="number" id="precioProducto" name="precio" placeholder="Precio" min="0" required>
                     </div>
                     <div class="campo-fila-admin">
-                        <label class="label-admin" for="imagenProducto">Imagen:</label>
-                        <input class="form-control campo-input-admin" type="file" id="imagenProducto" name="imagen" accept="image/*" required>
+                        <span class="label-admin">Imagen:</span>
+                        <div class="custom-file-upload-container">
+                            <label for="imagenProducto" class="custom-file-upload-label d-flex align-items-center justify-content-between m-0">
+                                <span id="file-upload-text" class="text-truncate">Seleccionar archivo...</span>
+                                <span class="custom-file-upload-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Examinar</span>
+                            </label>
+                            <div id="file-name-tooltip" class="file-name-tooltip-content"></div>
+                            <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="validador-invisible" required>
+                        </div>
                     </div>
                     <div class="campo-fila-admin">
                         <span class="label-admin">Estado:</span>
