@@ -52,8 +52,48 @@ document.addEventListener("DOMContentLoaded", () => {
         ticketItemsContainer.appendChild(itemRow);
     });
 
-    btnGuardarTicket.addEventListener("click", () => {
-        window.print();
+    btnGuardarTicket.addEventListener("click", async () => {
+        try {
+            btnGuardarTicket.disabled = true;
+            btnGuardarTicket.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+            
+            const payload = {
+                cliente: ultimoTicket.cliente,
+                fecha: ultimoTicket.fecha,
+                hora: ultimoTicket.hora || new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }),
+                items: itemsAgrupados,
+                total: ultimoTicket.total,
+                tema: localStorage.getItem("tema") || "dark"
+            };
+
+            const respuesta = await fetch("http://localhost:3000/api/ticket-pdf", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!respuesta.ok) {
+                throw new Error("Error al generar el PDF en el servidor.");
+            }
+
+            const blob = await respuesta.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `ticket-${ultimoTicket.cliente.replace(/\s+/g, "_")}-${ultimoTicket.fecha.replace(/\//g, "-")}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error al descargar el ticket en PDF:", error);
+            alert("No se pudo descargar el ticket. Por favor intente nuevamente.");
+        } finally {
+            btnGuardarTicket.disabled = false;
+            btnGuardarTicket.innerHTML = `<i class="fa-solid fa-floppy-disk"></i>`;
+        }
     });
 
     btnHome.addEventListener("click", (e) => {

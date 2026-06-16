@@ -27,8 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const grillaProductos = document.getElementById("grillaProductos");
     const listaCarrito = document.getElementById("listaCarrito");
     const totalMonto = document.getElementById("totalMonto");
+    const btnContinuar = document.getElementById("btnContinuar");
 
     let catalogoActual = "series";
+    let paginaActual = 1;
+    const limiteProductos = 6;
+    let totalPaginas = 1;
+    const paginacionContainer = document.getElementById("paginacionContainer");
 
     function renderizarCatalogo() {
         grillaProductos.innerHTML = "";
@@ -40,9 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
             tarjeta.setAttribute("role", "button");
             tarjeta.setAttribute("aria-label", `Agregar ${producto.titulo} al carrito`);
             
+            const imagenSrc = producto.imagen.startsWith("http") 
+                ? producto.imagen 
+                : `http://localhost:3000${producto.imagen}`;
+
             tarjeta.innerHTML = `
                 <div class="contenedor-portada">
-                    <img class="portada-img" src="${producto.imagen}" alt="Póster de ${producto.titulo}" loading="lazy">
+                    <img class="portada-img" src="${imagenSrc}" alt="Póster de ${producto.titulo}" loading="lazy">
                     <div class="overlay-agregar">
                         <i class="fa-solid fa-cart-plus"></i>
                         <span>AGREGAR</span>
@@ -74,6 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             totalMonto.textContent = "$0";
             sessionStorage.setItem("carrito", JSON.stringify(carrito));
+            if (btnContinuar) {
+                btnContinuar.classList.add("disabled");
+                btnContinuar.style.pointerEvents = "none";
+            }
             return;
         }
 
@@ -111,6 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         totalMonto.textContent = `$${total}`;
         sessionStorage.setItem("carrito", JSON.stringify(carrito));
+        if (btnContinuar) {
+            btnContinuar.classList.remove("disabled");
+            btnContinuar.style.pointerEvents = "auto";
+        }
     }
 
     function agregarAlCarrito(producto) {
@@ -143,7 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
             btnSeries.classList.add("active");
             btnPeliculas.classList.remove("active");
             tipoCatalogoSpan.textContent = "Series";
-            renderizarCatalogo();
+            paginaActual = 1;
+            cargarProductos();
         }
     });
 
@@ -153,10 +171,82 @@ document.addEventListener("DOMContentLoaded", () => {
             btnPeliculas.classList.add("active");
             btnSeries.classList.remove("active");
             tipoCatalogoSpan.textContent = "Películas";
-            renderizarCatalogo();
+            paginaActual = 1;
+            cargarProductos();
         }
     });
 
-    renderizarCatalogo();
+    async function cargarProductos() {
+        try {
+            const categoriaFiltro = catalogoActual === "series" ? "serie" : "pelicula";
+            const respuesta = await fetch(`http://localhost:3000/api/productos?pagina=${paginaActual}&limite=${limiteProductos}&estado=activo&categoria=${categoriaFiltro}`);
+            const data = await respuesta.json();
+            
+            if (data && data.success) {
+                productosDB[catalogoActual] = data.productos || [];
+                totalPaginas = data.totalPaginas || 1;
+                paginaActual = data.paginaActual || 1;
+                
+                renderizarCatalogo();
+                renderizarPaginacion();
+            }
+        } catch (error) {
+            console.error("Error al cargar productos desde la API:", error);
+        }
+    }
+
+    function renderizarPaginacion() {
+        if (!paginacionContainer) return;
+        paginacionContainer.innerHTML = "";
+
+        if (totalPaginas <= 1) {
+            return;
+        }
+
+        function crearBotonPaginacion(texto, paginaDestino, deshabilitado = false, activo = false) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "btn-paginacion";
+            if (activo) btn.classList.add("active");
+            if (deshabilitado) {
+                btn.classList.add("disabled");
+                btn.setAttribute("disabled", "true");
+            }
+            btn.textContent = texto;
+            btn.addEventListener("click", () => {
+                if (!deshabilitado && !activo) {
+                    paginaActual = paginaDestino;
+                    cargarProductos();
+                }
+            });
+            paginacionContainer.appendChild(btn);
+        }
+
+        // << (Primera página)
+        crearBotonPaginacion("<<", 1, paginaActual === 1);
+
+        // < (Página anterior)
+        crearBotonPaginacion("<", paginaActual - 1, paginaActual === 1);
+
+        // Nodos numéricos de páginas
+        let inicioPagina = Math.max(1, paginaActual - 1);
+        let finPagina = Math.min(totalPaginas, inicioPagina + 2);
+        
+        if (finPagina - inicioPagina < 2) {
+            inicioPagina = Math.max(1, finPagina - 2);
+        }
+
+        for (let i = inicioPagina; i <= finPagina; i++) {
+            crearBotonPaginacion(i.toString(), i, false, i === paginaActual);
+        }
+
+        // > (Página siguiente)
+        crearBotonPaginacion(">", paginaActual + 1, paginaActual === totalPaginas);
+
+        // >> (Última página)
+        crearBotonPaginacion(">>", totalPaginas, paginaActual === totalPaginas);
+    }
+
+    cargarProductos();
     actualizarCarritoUI();
 });

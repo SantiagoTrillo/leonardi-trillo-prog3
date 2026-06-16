@@ -1,34 +1,23 @@
 .formulario-bienvenida {
     width: min(100%, 270px);
-    margin-top: clamp(54px, 8vh, 76px);
-    gap: clamp(62px, 10vh, 88px);
+    margin-top: clamp(40px, 6vh, 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.formulario-bienvenida .campo-nombre {
+    width: 245px;
 }
 
 @media (max-width: 575.98px) {
     .formulario-bienvenida {
-        margin-top: 40px;
-        gap: 46px;
+        width: 100%;
+        gap: 16px;
     }
-}
-
-@media (min-width: 768px) {
-    .formulario-bienvenida {
-        flex-direction: row !important;
-        width: 100% !important;
-        max-width: 560px !important;
-        gap: 20px !important;
-        margin-top: clamp(40px, 6vh, 60px) !important;
-    }
-
-    .campo-nombre {
-        width: 320px !important;
-        height: 58px !important;
-        font-size: 1.1rem !important;
-    }
-
-    .boton-continuar {
-        width: 220px !important;
-        height: 58px !important;
-        font-size: 1.1rem !important;
+    
+    .formulario-bienvenida .campo-nombre {
+        width: 100%;
     }
 }

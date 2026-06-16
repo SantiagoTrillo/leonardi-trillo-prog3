@@ -1,12 +1,23 @@
+import fs from "fs";
 import Usuario from "../models/usuario.model.js";
+
+const borrarArchivoCargado = (req) => {
+    if (req.file) {
+        try {
+            fs.unlinkSync(req.file.path);
+        } catch (error) {
+            console.error("Error al borrar archivo temporal huérfano:", error);
+        }
+    }
+};
 
 export const validarRegistroAdmin = (req, res, next) => {
     const { correo, clave } = req.body;
     if (!correo || !correo.includes("@") || !correo.includes(".")) {
         return res.status(400).json({ error: "El formato del correo electrónico no es válido." });
     }
-    if (!clave || clave.length < 4) {
-        return res.status(400).json({ error: "La clave debe tener al menos 4 caracteres." });
+    if (!clave || clave.length < 6) {
+        return res.status(400).json({ error: "La clave debe tener al menos 6 caracteres." });
     }
     next();
 };
@@ -42,15 +53,19 @@ export const validarAltaProducto = (req, res, next) => {
     const { tipo, titulo, precio, estado } = req.body;
     
     if (!tipo || (tipo !== "pelicula" && tipo !== "serie")) {
+        borrarArchivoCargado(req);
         return res.status(400).send("La categoría del producto es obligatoria y debe ser 'pelicula' o 'serie'.");
     }
     if (!titulo || titulo.trim() === "") {
+        borrarArchivoCargado(req);
         return res.status(400).send("El título del producto es obligatorio.");
     }
     if (precio === undefined || isNaN(precio) || parseFloat(precio) < 0) {
+        borrarArchivoCargado(req);
         return res.status(400).send("El precio del producto debe ser un número válido y no negativo.");
     }
     if (estado && estado !== "activo" && estado !== "inactivo") {
+        borrarArchivoCargado(req);
         return res.status(400).send("El estado debe ser 'activo' o 'inactivo'.");
     }
     if (!req.file) {
@@ -62,6 +77,7 @@ export const validarAltaProducto = (req, res, next) => {
 export const validarModificarProducto = (req, res, next) => {
     const { id, tipo, titulo, precio, estado } = req.body;
     
+    // Si solo es actualización de estado (desde el panel de control)
     if (id && estado && !tipo && !titulo && !precio) {
         if (estado !== "activo" && estado !== "inactivo") {
             return res.status(400).json({ error: "El estado debe ser 'activo' o 'inactivo'." });
@@ -70,18 +86,23 @@ export const validarModificarProducto = (req, res, next) => {
     }
     
     if (!id || isNaN(id)) {
+        borrarArchivoCargado(req);
         return res.status(400).send("El identificador del producto es obligatorio y debe ser numérico.");
     }
     if (tipo && tipo !== "pelicula" && tipo !== "serie") {
+        borrarArchivoCargado(req);
         return res.status(400).send("La categoría debe ser 'pelicula' o 'serie'.");
     }
     if (titulo && titulo.trim() === "") {
+        borrarArchivoCargado(req);
         return res.status(400).send("El título no puede estar vacío.");
     }
     if (precio !== undefined && (isNaN(precio) || parseFloat(precio) < 0)) {
+        borrarArchivoCargado(req);
         return res.status(400).send("El precio debe ser un número válido y no negativo.");
     }
     if (estado && estado !== "activo" && estado !== "inactivo") {
+        borrarArchivoCargado(req);
         return res.status(400).send("El estado debe ser 'activo' o 'inactivo'.");
     }
     next();

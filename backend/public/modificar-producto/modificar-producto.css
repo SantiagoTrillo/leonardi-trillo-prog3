@@ -1,1 +1,41 @@
 @import "/alta-producto/alta-producto.css";
+
+.campo-fila-admin-previa {
+    display: grid;
+    grid-template-columns: 85px minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 575.98px) {
+    .campo-fila-admin-previa {
+        grid-template-columns: 100%;
+        gap: 6px;
+    }
+}
+
+.vista-previa-contenedor {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1.5px dashed var(--color-linea);
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.imagen-previa-admin {
+    max-width: 110px;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1.5px solid var(--color-linea);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.imagen-previa-admin:hover {
+    transform: scale(1.05);
+}

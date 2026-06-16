@@ -1,6 +1,11 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import consultaBD from "../models/productos.models.js"
 import usuariosModel from "../models/usuarios.models.js"
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 export const loginView = (req, res) => {
     res.render('inicio-sesion', {
         titulo: 'Iniciar Sesion',
@@ -59,6 +64,17 @@ export const modificarProductoAction = async (req, res) => {
     let rutaImagen = imagenExistente;
     if (req.file) {
         rutaImagen = `/uploads/${req.file.filename}`;
+
+        if (imagenExistente && imagenExistente.startsWith("/uploads/")) {
+            const pathAnterior = path.join(__dirname, "../public", imagenExistente);
+            try {
+                if (fs.existsSync(pathAnterior)) {
+                    fs.unlinkSync(pathAnterior);
+                }
+            } catch (error) {
+                console.error("Error al borrar la imagen anterior:", error);
+            }
+        }
     }
 
     await consultaBD.actualizarProducto(id, { tipo, titulo, precio: parseFloat(precio) || 0, imagen: rutaImagen, estado });

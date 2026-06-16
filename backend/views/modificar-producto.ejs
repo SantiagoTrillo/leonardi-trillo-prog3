@@ -31,6 +31,12 @@
                         <label class="label-admin" for="precioProducto">Precio:</label>
                         <input class="form-control campo-input-admin" type="number" id="precioProducto" name="precio" value="<%= product.precio %>" placeholder="Precio" min="0" required>
                     </div>
+                    <div class="campo-fila-admin-previa">
+                        <span class="label-admin">Póster:</span>
+                        <div class="vista-previa-contenedor">
+                            <img id="vistaPreviaImagen" src="<%= product.imagen %>" alt="Vista previa del póster" class="imagen-previa-admin">
+                        </div>
+                    </div>
                     <div class="campo-fila-admin">
                         <span class="label-admin">Imagen:</span>
                         <div class="custom-file-upload-container">

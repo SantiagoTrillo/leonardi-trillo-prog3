@@ -447,6 +447,17 @@
     box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
 }
 
+.btn-continuar.disabled {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
+    background: var(--boton-oscuro) !important;
+    border-color: var(--color-linea) !important;
+    color: var(--texto-secundario) !important;
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: not-allowed !important;
+}
+
 .carrito-vacio-msg {
     color: var(--texto-principal);
 }
@@ -491,6 +502,52 @@
     background: rgba(201, 201, 201, 0.55);
 }
 
+/* Estilos de Paginación */
+.contenedor-paginacion {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.btn-paginacion {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    flex-shrink: 0;
+}
+
+.btn-paginacion:hover:not(.disabled) {
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    background: rgba(255, 144, 0, 0.03);
+}
+
+.btn-paginacion.active {
+    background: rgba(255, 144, 0, 0.08);
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 8px rgba(255, 144, 0, 0.15);
+}
+
+.btn-paginacion.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 @media (max-width: 1199.98px) {
     .pagina-productos {
         padding: 10px;
@@ -515,6 +572,7 @@
         border-right: none;
         border-bottom: 1.5px solid var(--color-linea);
         flex-direction: row !important;
+        flex-wrap: wrap;
         justify-content: center;
         padding: 20px;
         position: static;

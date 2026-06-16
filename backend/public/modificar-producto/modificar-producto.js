@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileUploadText = document.getElementById("file-upload-text");
     const fileTooltip = document.getElementById("file-name-tooltip");
     const imagenExistenteInput = document.getElementsByName("imagenExistente")[0];
+    const vistaPreviaImagen = document.getElementById("vistaPreviaImagen");
 
     if (inputImagen && fileUploadText) {
         inputImagen.addEventListener("change", () => {
@@ -130,6 +131,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     fileTooltip.textContent = nombreArchivo;
                     fileTooltip.classList.add("has-file");
                 }
+
+                // Actualizar la vista previa con FileReader
+                const lector = new FileReader();
+                lector.onload = (e) => {
+                    if (vistaPreviaImagen) {
+                        vistaPreviaImagen.src = e.target.result;
+                    }
+                };
+                lector.readAsDataURL(inputImagen.files[0]);
             } else {
                 const valorInicial = imagenExistenteInput ? imagenExistenteInput.value : "Seleccionar archivo...";
                 fileUploadText.textContent = valorInicial;
@@ -138,6 +148,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (fileTooltip) {
                     fileTooltip.textContent = valorInicial;
                     fileTooltip.classList.add("has-file");
+                }
+
+                // Restaurar la vista previa anterior
+                if (vistaPreviaImagen && imagenExistenteInput) {
+                    vistaPreviaImagen.src = imagenExistenteInput.value;
                 }
             }
             inputImagen.blur();

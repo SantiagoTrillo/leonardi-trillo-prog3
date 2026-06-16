@@ -49,8 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 const badgeHTML = prod.cantidad > 1 ? `<span class="poster-badge">x${prod.cantidad}</span>` : "";
                 
+                const imagenSrc = prod.imagen.startsWith("http")
+                    ? prod.imagen
+                    : `http://localhost:3000${prod.imagen}`;
+                
                 tarjeta.innerHTML = `
-                    <img class="poster-img" src="${prod.imagen}" alt="Póster de ${prod.titulo}" loading="lazy">
+                    <img class="poster-img" src="${imagenSrc}" alt="Póster de ${prod.titulo}" loading="lazy">
                     ${badgeHTML}
                 `;
             } else {
@@ -159,43 +163,77 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarritoUI();
     }
 
-    btnConfirmarCompra.addEventListener("click", () => {
-        if (carrito.length === 0) return;
+    const modalConfirmar = document.getElementById("modalConfirmarCompra");
+    const botonConfirmar = document.getElementById("botonConfirmarCompra");
+    const botonCancelar = document.getElementById("botonCancelarCompra");
 
-        let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-
-        try {
-            const url = window.location.protocol === 'file:' 
-                ? 'http://localhost:3000/api/confirmar-compra' 
-                : '/api/confirmar-compra';
-            
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    cliente: nombreCliente,
-                    productos: carrito,
-                    total: total
-                })
-            });
-        } catch (error) {
-            console.log("Fetch simulado o fallido en backend (esperado):", error);
+    function ocultarModal() {
+        if (modalConfirmar) {
+            modalConfirmar.classList.add("d-none");
         }
+    }
 
-        const compraFinalizada = {
-            cliente: nombreCliente,
-            items: carrito,
-            total: total,
-            fecha: new Date().toLocaleDateString('es-AR'),
-            hora: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
-        };
-        sessionStorage.setItem("ultimoTicket", JSON.stringify(compraFinalizada));
-        sessionStorage.removeItem("carrito");
+    if (btnConfirmarCompra) {
+        btnConfirmarCompra.addEventListener("click", () => {
+            if (carrito.length === 0) return;
+            if (modalConfirmar) {
+                modalConfirmar.classList.remove("d-none");
+            }
+        });
+    }
 
-        window.location.href = "../ticket/ticket.html";
-    });
+    if (botonCancelar) {
+        botonCancelar.addEventListener("click", ocultarModal);
+    }
+
+    if (modalConfirmar) {
+        modalConfirmar.addEventListener("click", (e) => {
+            if (e.target === modalConfirmar) {
+                ocultarModal();
+            }
+        });
+    }
+
+    if (botonConfirmar) {
+        botonConfirmar.addEventListener("click", () => {
+            if (carrito.length === 0) return;
+
+            let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+
+            try {
+                const url = window.location.protocol === 'file:' 
+                    ? 'http://localhost:3000/api/confirmar-compra' 
+                    : '/api/confirmar-compra';
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cliente: nombreCliente,
+                        productos: carrito,
+                        total: total
+                    })
+                });
+            } catch (error) {
+                console.log("Fetch simulado o fallido en backend (esperado):", error);
+            }
+
+            const compraFinalizada = {
+                cliente: nombreCliente,
+                items: carrito,
+                total: total,
+                fecha: new Date().toLocaleDateString('es-AR'),
+                hora: new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' })
+            };
+            sessionStorage.setItem("ultimoTicket", JSON.stringify(compraFinalizada));
+            sessionStorage.removeItem("carrito");
+
+            ocultarModal();
+            window.location.href = "../ticket/ticket.html";
+        });
+    }
 
     actualizarCarritoUI();
 });
