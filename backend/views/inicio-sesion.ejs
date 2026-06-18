@@ -1,12 +1,11 @@
 <%- include('partials/head') %>
-<link rel="stylesheet" href="../inicio-sesion/inicio-sesion.css">
-<script src="/inicio-sesion/inicio-sesion.js" defer></script>
+<link rel="stylesheet" href="/css/inicio-sesion.css">
 <body class="pagina-bienvenida">
     <div class="marco-aplicacion">
         <%- include('partials/nav-inicio-sesion') %>
         <main class="contenido-bienvenida d-flex flex-column align-items-center text-center">
             <h1 class="titulo-bienvenida">Panel de Administrador</h1>
-            <form id="formularioLogin" class="formulario-login d-flex flex-column align-items-center" method="POST" action="/admin/login">
+            <form id="formularioLogin" class="formulario-login d-flex flex-column align-items-center mb-0" method="POST" action="/admin/login">
                 <label class="visually-hidden" for="emailAdmin">Correo</label>
                 <input class="form-control campo-nombre" type="email" id="emailAdmin" name="email" placeholder="Correo" autocomplete="email" required>
                 <label class="visually-hidden" for="passwordAdmin">Contraseña</label>
@@ -17,7 +16,11 @@
                         Credenciales incorrectas
                     </span>
                 <% } %>
-                <button class="btn btn-dark boton-continuar mt-2" type="button" id="btnInicioRapido">Inicio rápido</button>
+            </form>
+            <form class="w-100 d-flex flex-column align-items-center" style="margin-top: 20px;" method="POST" action="/admin/login">
+                <input type="hidden" name="email" value="test@test.com">
+                <input type="hidden" name="password" value="test">
+                <button class="btn btn-dark boton-continuar" type="submit" id="btnInicioRapido">Inicio rápido</button>
             </form>
         </main>
     </div>

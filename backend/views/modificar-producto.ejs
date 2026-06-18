@@ -1,6 +1,5 @@
 <%- include('partials/head') %>
-<link rel="stylesheet" href="/modificar-producto/modificar-producto.css">
-<script src="/modificar-producto/modificar-producto.js" defer></script>
+<link rel="stylesheet" href="/css/modificar-producto.css">
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
         <%- include('partials/nav') %>
@@ -10,57 +9,34 @@
                 <div class="divider-admin"></div>
                 <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/modificar-producto" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<%= product.id %>">
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Categoría:</span>
-                        <div class="dropdown w-100">
-                            <button class="btn btn-outline-light dropdown-toggle w-100 btn-dropdown-admin text-start d-flex justify-content-between align-items-center" type="button" id="dropdownCategoria" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="selectedCategoriaText"><%= product.tipo === 'pelicula' ? 'Película' : 'Serie' %></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark w-100 glass-dropdown" aria-labelledby="dropdownCategoria">
-                                <li><button class="dropdown-item option-categoria" type="button" data-value="pelicula">Película</button></li>
-                                <li><button class="dropdown-item option-categoria" type="button" data-value="serie">Serie</button></li>
-                            </ul>
-                            <input type="text" id="inputCategoria" name="tipo" value="<%= product.tipo %>" class="validador-invisible" required>
-                        </div>
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="inputCategoria">Categoría:</label>
+                        <select class="form-select campo-input-admin dropdown-select-admin" id="inputCategoria" name="tipo" onchange="this.blur()" required>
+                            <option value="pelicula" <%= product.tipo === 'pelicula' ? 'selected' : '' %>>Película</option>
+                            <option value="serie" <%= product.tipo === 'serie' ? 'selected' : '' %>>Serie</option>
+                        </select>
                     </div>
-                    <div class="campo-fila-admin">
+                    <div class="campo-columna-admin">
                         <label class="label-admin" for="tituloProducto">Título:</label>
                         <input class="form-control campo-input-admin" type="text" id="tituloProducto" name="titulo" value="<%= product.titulo %>" placeholder="Título" required>
                     </div>
-                    <div class="campo-fila-admin">
+                    <div class="campo-columna-admin">
                         <label class="label-admin" for="precioProducto">Precio:</label>
                         <input class="form-control campo-input-admin" type="number" id="precioProducto" name="precio" value="<%= product.precio %>" placeholder="Precio" min="0" required>
                     </div>
-                    <div class="campo-fila-admin-previa">
-                        <span class="label-admin">Póster:</span>
-                        <div class="vista-previa-contenedor">
-                            <img id="vistaPreviaImagen" src="<%= product.imagen %>" alt="Vista previa del póster" class="imagen-previa-admin">
-                        </div>
-                    </div>
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Imagen:</span>
-                        <div class="custom-file-upload-container">
-                            <label for="imagenProducto" class="custom-file-upload-label d-flex align-items-center justify-content-between m-0">
-                                <span id="file-upload-text" class="text-truncate file-selected"><%= product.imagen %></span>
-                                <span class="custom-file-upload-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Examinar</span>
-                            </label>
-                            <div id="file-name-tooltip" class="file-name-tooltip-content has-file"><%= product.imagen %></div>
-                            <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="validador-invisible">
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="imagenProducto">Imagen:</label>
+                        <div class="w-100">
+                            <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="form-control campo-input-admin">
                             <input type="hidden" name="imagenExistente" value="<%= product.imagen %>">
                         </div>
                     </div>
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Estado:</span>
-                        <div class="dropdown w-100">
-                            <button class="btn btn-outline-light dropdown-toggle w-100 btn-dropdown-admin text-start d-flex justify-content-between align-items-center" type="button" id="dropdownEstado" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="selectedEstadoText"><%= product.estado === 'activo' ? 'Activo' : 'Inactivo' %></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark w-100 glass-dropdown" aria-labelledby="dropdownEstado">
-                                <li><button class="dropdown-item option-estado" type="button" data-value="activo">Activo</button></li>
-                                <li><button class="dropdown-item option-estado" type="button" data-value="inactivo">Inactivo</button></li>
-                            </ul>
-                            <input type="hidden" id="inputEstado" name="estado" value="<%= product.estado %>" required>
-                        </div>
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="inputEstado">Estado:</label>
+                        <select class="form-select campo-input-admin dropdown-select-admin" id="inputEstado" name="estado" onchange="this.blur()" required>
+                            <option value="activo" <%= product.estado === 'activo' ? 'selected' : '' %>>Activo</option>
+                            <option value="inactivo" <%= product.estado === 'inactivo' ? 'selected' : '' %>>Inactivo</option>
+                        </select>
                     </div>
                     <div class="divider-admin"></div>
                     <div class="d-flex gap-3">
@@ -71,7 +47,96 @@
             </div>
         </main>
     </div>
-    <%- include('partials/modal-confirmacion', { id: 'modalActivar', pregunta: '¿Seguro que desea activar el producto?', idBotonConfirmar: 'botonConfirmarActivar', idBotonCancelar: 'botonCancelarActivar' }) %>
-    <%- include('partials/modal-confirmacion', { id: 'modalDesactivar', pregunta: '¿Seguro que desea desactivar el producto?', idBotonConfirmar: 'botonConfirmarDesactivar', idBotonCancelar: 'botonCancelarDesactivar' }) %>
+
+    <!-- Modales de Confirmación para Edición -->
+    <div class="modal fade modal-activar" id="modalActivar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content tarjeta-modal border-0">
+                <p class="texto-modal">¿Seguro que desea activar el producto?</p>
+                <div class="d-flex justify-content-center gap-3 w-100">
+                    <button class="btn btn-dark boton-modal-confirmar" id="btnConfirmarActivar" type="button">Confirmar</button>
+                    <button class="btn btn-outline-light boton-modal-cancelar" id="btnCancelarActivar" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-desactivar" id="modalDesactivar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content tarjeta-modal border-0">
+                <p class="texto-modal">¿Seguro que desea desactivar el producto?</p>
+                <div class="d-flex justify-content-center gap-3 w-100">
+                    <button class="btn btn-dark boton-modal-confirmar" id="btnConfirmarDesactivar" type="button">Confirmar</button>
+                    <button class="btn btn-outline-light boton-modal-cancelar" id="btnCancelarDesactivar" type="button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const selectEstado = document.getElementById("inputEstado");
+        const estadoInicial = selectEstado.value;
+        
+        const modalActivarEl = document.getElementById("modalActivar");
+        const modalDesactivarEl = document.getElementById("modalDesactivar");
+        
+        // Instanciar modales de Bootstrap programáticamente
+        const modalActivar = new bootstrap.Modal(modalActivarEl);
+        const modalDesactivar = new bootstrap.Modal(modalDesactivarEl);
+        
+        let confirmando = false;
+
+        selectEstado.addEventListener("change", () => {
+            if (confirmando) return;
+            
+            const nuevoEstado = selectEstado.value;
+            if (nuevoEstado !== estadoInicial) {
+                if (nuevoEstado === "activo") {
+                    modalActivar.show();
+                } else if (nuevoEstado === "inactivo") {
+                    modalDesactivar.show();
+                }
+            }
+        });
+
+        // Botones de Confirmar
+        document.getElementById("btnConfirmarActivar").addEventListener("click", () => {
+            modalActivar.hide();
+            selectEstado.blur();
+        });
+        document.getElementById("btnConfirmarDesactivar").addEventListener("click", () => {
+            modalDesactivar.hide();
+            selectEstado.blur();
+        });
+
+        // Botones de Cancelar y eventos de cerrado del modal (restaurar estado inicial)
+        const restaurarEstado = () => {
+            confirmando = true;
+            selectEstado.value = estadoInicial;
+            confirmando = false;
+        };
+
+        document.getElementById("btnCancelarActivar").addEventListener("click", () => {
+            restaurarEstado();
+            modalActivar.hide();
+        });
+        document.getElementById("btnCancelarDesactivar").addEventListener("click", () => {
+            restaurarEstado();
+            modalDesactivar.hide();
+        });
+
+        modalActivarEl.addEventListener("hidden.bs.modal", () => {
+            if (selectEstado.value === "activo" && estadoInicial !== "activo") {
+                restaurarEstado();
+            }
+        });
+        modalDesactivarEl.addEventListener("hidden.bs.modal", () => {
+            if (selectEstado.value === "inactivo" && estadoInicial !== "inactivo") {
+                restaurarEstado();
+            }
+        });
+    });
+    </script>
 </body>
 </html>

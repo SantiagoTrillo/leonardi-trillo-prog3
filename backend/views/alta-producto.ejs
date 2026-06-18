@@ -1,6 +1,5 @@
 <%- include('partials/head') %>
-<link rel="stylesheet" href="/alta-producto/alta-producto.css">
-<script src="/alta-producto/alta-producto.js" defer></script>
+<link rel="stylesheet" href="/css/alta-producto.css">
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
         <%- include('partials/nav') %>
@@ -9,50 +8,32 @@
                 <h1 class="titulo-alta-admin text-center">Alta de producto</h1>
                 <div class="divider-admin"></div>
                 <form class="formulario-alta d-flex flex-column gap-4" method="POST" action="/admin/alta-producto" enctype="multipart/form-data">
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Categoría:</span>
-                        <div class="dropdown w-100">
-                            <button class="btn btn-outline-light dropdown-toggle w-100 btn-dropdown-admin text-start d-flex justify-content-between align-items-center" type="button" id="dropdownCategoria" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="selectedCategoriaText">Seleccione Categoría</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark w-100 glass-dropdown" aria-labelledby="dropdownCategoria">
-                                <li><button class="dropdown-item option-categoria" type="button" data-value="pelicula">Película</button></li>
-                                <li><button class="dropdown-item option-categoria" type="button" data-value="serie">Serie</button></li>
-                            </ul>
-                            <input type="text" id="inputCategoria" name="tipo" class="validador-invisible" required>
-                        </div>
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="inputCategoria">Categoría:</label>
+                        <select class="form-select campo-input-admin dropdown-select-admin" id="inputCategoria" name="tipo" onchange="this.blur()" required>
+                            <option value="" disabled selected>Seleccione Categoría</option>
+                            <option value="pelicula">Película</option>
+                            <option value="serie">Serie</option>
+                        </select>
                     </div>
-                    <div class="campo-fila-admin">
+                    <div class="campo-columna-admin">
                         <label class="label-admin" for="tituloProducto">Título:</label>
                         <input class="form-control campo-input-admin" type="text" id="tituloProducto" name="titulo" placeholder="Título" required>
                     </div>
-                    <div class="campo-fila-admin">
+                    <div class="campo-columna-admin">
                         <label class="label-admin" for="precioProducto">Precio:</label>
                         <input class="form-control campo-input-admin" type="number" id="precioProducto" name="precio" placeholder="Precio" min="0" required>
                     </div>
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Imagen:</span>
-                        <div class="custom-file-upload-container">
-                            <label for="imagenProducto" class="custom-file-upload-label d-flex align-items-center justify-content-between m-0">
-                                <span id="file-upload-text" class="text-truncate">Seleccionar archivo...</span>
-                                <span class="custom-file-upload-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Examinar</span>
-                            </label>
-                            <div id="file-name-tooltip" class="file-name-tooltip-content"></div>
-                            <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="validador-invisible" required>
-                        </div>
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="imagenProducto">Imagen:</label>
+                        <input type="file" id="imagenProducto" name="imagen" accept="image/*" class="form-control campo-input-admin" required>
                     </div>
-                    <div class="campo-fila-admin">
-                        <span class="label-admin">Estado:</span>
-                        <div class="dropdown w-100">
-                            <button class="btn btn-outline-light dropdown-toggle w-100 btn-dropdown-admin text-start d-flex justify-content-between align-items-center" type="button" id="dropdownEstado" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span id="selectedEstadoText">Activo</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-dark w-100 glass-dropdown" aria-labelledby="dropdownEstado">
-                                <li><button class="dropdown-item option-estado" type="button" data-value="activo">Activo</button></li>
-                                <li><button class="dropdown-item option-estado" type="button" data-value="inactivo">Inactivo</button></li>
-                            </ul>
-                            <input type="hidden" id="inputEstado" name="estado" value="activo" required>
-                        </div>
+                    <div class="campo-columna-admin">
+                        <label class="label-admin" for="inputEstado">Estado:</label>
+                        <select class="form-select campo-input-admin dropdown-select-admin" id="inputEstado" name="estado" onchange="this.blur()" required>
+                            <option value="activo" selected>Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
                     </div>
                     <div class="divider-admin"></div>
                     <div class="d-flex gap-3">

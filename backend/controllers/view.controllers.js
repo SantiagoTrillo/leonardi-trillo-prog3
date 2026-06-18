@@ -14,11 +14,14 @@ export const loginView = (req, res) => {
 }
 
 export const dashboardView = async (req, res) => {
-    const productos = await consultaBD.obtenerTodosLosProductos();
+    const tipoActual = req.query.tipo || "serie";
+    const todosProductos = await consultaBD.obtenerTodosLosProductos();
+    const productos = todosProductos.filter(p => p.tipo === tipoActual);
 
     res.render('panel-control', {
         titulo: 'Panel de Control',
-        productos
+        productos,
+        tipoActual
     })
 }
 
@@ -57,8 +60,10 @@ export const modificarProductoAction = async (req, res) => {
     const { id, tipo, titulo, precio, estado, imagenExistente } = req.body;
 
     if (id && estado && !tipo && !titulo) {
-        const resultado = await consultaBD.actualizarEstadoProducto(id, estado);
-        return res.json({ success: resultado });
+        await consultaBD.actualizarEstadoProducto(id, estado);
+        const producto = await consultaBD.obtenerProductoPorId(id);
+        const tipoRedireccion = (producto && producto.tipo) ? producto.tipo : "serie";
+        return res.redirect(`/admin/dashboard?tipo=${tipoRedireccion}`);
     }
 
     let rutaImagen = imagenExistente;

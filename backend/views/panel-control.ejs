@@ -1,14 +1,13 @@
 <%- include('partials/head') %>
-<link rel="stylesheet" href="/panel-control/panel-control.css">
-<script src="/panel-control/panel-control.js" defer></script>
+<link rel="stylesheet" href="/css/panel-control.css">
 <body class="pagina-productos">
     <div class="marco-aplicacion d-flex flex-column">
         <%- include('partials/nav') %>
         <div class="cuerpo-productos d-flex flex-grow-1">
             <aside class="panel-izquierdo d-flex flex-column align-items-center justify-content-between p-3">
                 <div class="d-flex flex-column w-100 gap-3">
-                    <button class="btn-catalogo active" id="btnSeries" type="button">Catálogo de series</button>
-                    <button class="btn-catalogo" id="btnPeliculas" type="button">Catálogo de películas</button>
+                    <a href="/admin/dashboard?tipo=serie" class="btn-catalogo <%= tipoActual === 'serie' ? 'active' : '' %> text-decoration-none">Catálogo de series</a>
+                    <a href="/admin/dashboard?tipo=pelicula" class="btn-catalogo <%= tipoActual === 'pelicula' ? 'active' : '' %> text-decoration-none">Catálogo de películas</a>
                 </div>
                 <a href="/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
             </aside>
@@ -46,8 +45,42 @@
                             </div>
                             <div class="acciones-admin d-flex gap-3 align-items-center">
                                 <a href="/admin/modificar-producto?id=<%= producto.id %>" class="btn-accion-admin btn-editar-admin" aria-label="Editar producto"><i class="fa-solid fa-pencil"></i></a>
-                                <button class="btn-accion-admin btn-activar-admin <%= producto.estado === 'activo' ? 'd-none' : '' %>" data-id="<%= producto.id %>" aria-label="Activar producto" type="button"><i class="fa-solid fa-power-off"></i></button>
-                                <button class="btn-accion-admin btn-borrar-admin <%= producto.estado === 'inactivo' ? 'd-none' : '' %>" data-id="<%= producto.id %>" aria-label="Borrar producto" type="button"><i class="fa-solid fa-trash-can"></i></button>
+                                <button class="btn-accion-admin btn-activar-admin <%= producto.estado === 'activo' ? 'd-none' : '' %>" data-bs-toggle="modal" data-bs-target="#modalActivar-<%= producto.id %>" aria-label="Activar producto" type="button"><i class="fa-solid fa-power-off"></i></button>
+                                <button class="btn-accion-admin btn-borrar-admin <%= producto.estado === 'inactivo' ? 'd-none' : '' %>" data-bs-toggle="modal" data-bs-target="#modalDesactivar-<%= producto.id %>" aria-label="Borrar producto" type="button"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Modal Desactivar para este producto -->
+                        <div class="modal fade modal-desactivar" id="modalDesactivar-<%= producto.id %>" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content tarjeta-modal border-0">
+                                    <p class="texto-modal">¿Seguro que desea desactivar a "<%= producto.titulo %>"?</p>
+                                    <div class="d-flex justify-content-center gap-3 w-100">
+                                        <form action="/admin/modificar-producto" method="POST" class="m-0 p-0 w-100 d-flex justify-content-center gap-3">
+                                            <input type="hidden" name="id" value="<%= producto.id %>">
+                                            <input type="hidden" name="estado" value="inactivo">
+                                            <button class="btn btn-dark boton-modal-confirmar" type="submit">Confirmar</button>
+                                            <button class="btn btn-outline-light boton-modal-cancelar" data-bs-dismiss="modal" type="button">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Activar para este producto -->
+                        <div class="modal fade modal-activar" id="modalActivar-<%= producto.id %>" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content tarjeta-modal border-0">
+                                    <p class="texto-modal">¿Seguro que desea activar a "<%= producto.titulo %>"?</p>
+                                    <div class="d-flex justify-content-center gap-3 w-100">
+                                        <form action="/admin/modificar-producto" method="POST" class="m-0 p-0 w-100 d-flex justify-content-center gap-3">
+                                            <input type="hidden" name="id" value="<%= producto.id %>">
+                                            <input type="hidden" name="estado" value="activo">
+                                            <button class="btn btn-dark boton-modal-confirmar" type="submit">Confirmar</button>
+                                            <button class="btn btn-outline-light boton-modal-cancelar" data-bs-dismiss="modal" type="button">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <% }); %>
@@ -60,7 +93,6 @@
             </main>
         </div>
     </div>
-    <%- include('partials/modal-confirmacion', { id: 'modalDesactivar', pregunta: '¿Seguro que desea desactivar el producto?', idBotonConfirmar: 'botonConfirmarDesactivar', idBotonCancelar: 'botonCancelarDesactivar' }) %>
-    <%- include('partials/modal-confirmacion', { id: 'modalActivar', pregunta: '¿Seguro que desea activar el producto?', idBotonConfirmar: 'botonConfirmarActivar', idBotonCancelar: 'botonCancelarActivar' }) %>
+
 </body>
 </html>

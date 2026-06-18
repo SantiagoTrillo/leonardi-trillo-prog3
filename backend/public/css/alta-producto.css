@@ -9,7 +9,7 @@
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(10px);
     padding: 30px;
-    width: min(100%, 420px);
+    width: min(100%, 550px);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -52,8 +52,8 @@
     height: 50px;
     border: 1.5px solid #777;
     border-radius: 10px;
-    background: transparent;
-    color: var(--texto-principal);
+    background-color: #111416 !important;
+    color: var(--texto-principal) !important;
     font-size: 0.95rem;
     transition: all 0.3s ease;
 }
@@ -64,10 +64,10 @@
 }
 
 .campo-input-admin:focus {
-    background: transparent;
-    color: var(--texto-principal);
-    border-color: var(--color-acento);
-    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
+    background-color: #111416 !important;
+    color: var(--texto-principal) !important;
+    border-color: var(--color-acento) !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25) !important;
     outline: none;
 }
 
