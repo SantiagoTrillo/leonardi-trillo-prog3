@@ -150,7 +150,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function eliminarDelCarrito(id) {
-        carrito = carrito.filter(item => item.id !== id);
+        const itemExistente = carrito.find(item => item.id === id);
+        if (itemExistente) {
+            itemExistente.cantidad -= 1;
+            if (itemExistente.cantidad <= 0) {
+                carrito = carrito.filter(item => item.id !== id);
+            }
+        }
         actualizarCarritoUI();
     }
 

@@ -76,7 +76,7 @@
 .titulo-seccion-admin {
     margin: 0;
     color: var(--texto-principal);
-    font-size: clamp(1.8rem, 2.5vw, 2.3rem);
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
     font-weight: 700;
     letter-spacing: -0.5px;
 }
@@ -306,4 +306,156 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     opacity: 0.85;
+}
+
+/* ==========================================================================
+   Buscador y Paginador en el Panel de Control
+   ========================================================================== */
+
+/* Buscador de administración */
+.buscador-admin {
+    max-width: 350px;
+    width: 100%;
+}
+
+.wrapper-input-buscar {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.input-buscar-admin {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid var(--color-linea) !important;
+    border-radius: 12px;
+    color: var(--texto-principal) !important;
+    padding: 10px 35px 10px 15px;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.input-buscar-admin::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+    opacity: 1 !important;
+}
+
+.input-buscar-admin:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-acento) !important;
+    box-shadow: 0 0 10px rgba(255, 144, 0, 0.2) !important;
+    outline: none;
+}
+
+.btn-clear-buscar {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--texto-secundario);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.btn-clear-buscar:hover {
+    color: #e74c3c;
+}
+
+.btn-buscar-admin {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea) !important;
+    border-radius: 12px;
+    color: var(--texto-principal);
+    font-size: 1.1rem;
+    background: var(--boton-oscuro);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.btn-buscar-admin:hover,
+.btn-buscar-admin:focus {
+    background: var(--color-acento) !important;
+    border-color: var(--color-acento) !important;
+    color: #fff;
+    box-shadow: 0 0 12px rgba(255, 144, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* Paginación en la barra lateral */
+.contenedor-paginacion {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+}
+
+.btn-paginacion {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--texto-secundario);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.btn-paginacion:hover:not(.disabled) {
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    background: rgba(255, 144, 0, 0.03);
+}
+
+.btn-paginacion.active {
+    background: rgba(255, 144, 0, 0.08);
+    color: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 8px rgba(255, 144, 0, 0.15);
+}
+
+.btn-paginacion.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Estado vacío */
+.alert-no-productos {
+    border: 1.5px solid var(--color-linea);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.01);
+}
+
+/* Responsividad para cabecera del panel de administración */
+@media (max-width: 767.98px) {
+    .cabecera-panel-central {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px !important;
+        text-align: left !important;
+    }
+    
+    .buscador-admin {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
 }

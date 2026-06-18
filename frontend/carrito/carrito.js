@@ -202,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
                 const url = window.location.protocol === 'file:' 
-                    ? 'http://localhost:3000/api/confirmar-compra' 
-                    : '/api/confirmar-compra';
+                    ? 'http://localhost:3000/api/ventas' 
+                    : '/api/ventas';
                 
                 fetch(url, {
                     method: 'POST',

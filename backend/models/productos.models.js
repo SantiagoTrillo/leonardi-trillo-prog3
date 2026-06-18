@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import Producto from "./producto.model.js";
 
 const obtenerTodosLosProductos = async () => {
@@ -46,10 +47,47 @@ const actualizarEstadoProducto = async (id, estado) => {
     return affectedRows > 0;
 };
 
+const obtenerProductosPaginadosYFiltrados = async ({ tipo, buscar, pagina, limite }) => {
+    const offset = (pagina - 1) * limite;
+    const where = {
+        categoria: tipo
+    };
+    if (buscar && buscar.trim() !== "") {
+        where.titulo = {
+            [Op.like]: `%${buscar}%`
+        };
+    }
+    const { count, rows } = await Producto.findAndCountAll({
+        where,
+        limit: limite,
+        offset: offset,
+        order: [
+            ['estado', 'ASC'],
+            ['titulo', 'ASC']
+        ]
+    });
+    
+    const productos = rows.map(p => {
+        const raw = p.get({ plain: true });
+        raw.tipo = raw.categoria;
+        return raw;
+    });
+
+    const totalPaginas = Math.ceil(count / limite);
+
+    return {
+        productos,
+        totalProductos: count,
+        totalPaginas,
+        paginaActual: pagina
+    };
+};
+
 export default {
     obtenerTodosLosProductos,
     obtenerProductoPorId,
     agregarProducto,
     actualizarProducto,
-    actualizarEstadoProducto
+    actualizarEstadoProducto,
+    obtenerProductosPaginadosYFiltrados
 };

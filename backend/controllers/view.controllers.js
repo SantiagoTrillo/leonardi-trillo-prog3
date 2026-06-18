@@ -15,15 +15,27 @@ export const loginView = (req, res) => {
 
 export const dashboardView = async (req, res) => {
     const tipoActual = req.query.tipo || "serie";
-    const todosProductos = await consultaBD.obtenerTodosLosProductos();
-    const productos = todosProductos.filter(p => p.tipo === tipoActual);
+    const buscar = req.query.buscar || "";
+    const pagina = parseInt(req.query.pagina) || 1;
+    const limite = 6;
+
+    const result = await consultaBD.obtenerProductosPaginadosYFiltrados({
+        tipo: tipoActual,
+        buscar,
+        pagina,
+        limite
+    });
 
     res.render('panel-control', {
         titulo: 'Panel de Control',
-        productos,
-        tipoActual
-    })
-}
+        productos: result.productos,
+        tipoActual,
+        buscar,
+        paginaActual: result.paginaActual,
+        totalPaginas: result.totalPaginas,
+        totalProductos: result.totalProductos
+    });
+};
 
 export const altaProductoView = (req, res) => {
     res.render('alta-producto', {
@@ -52,7 +64,32 @@ export const altaProductoAction = async (req, res) => {
     if (req.file) {
         rutaImagen = `/uploads/${req.file.filename}`;
     }
-    await consultaBD.agregarProducto({ tipo, titulo, precio: parseFloat(precio) || 0, imagen: rutaImagen, estado });
+    
+    const nuevoId = await consultaBD.agregarProducto({ tipo, titulo, precio: parseFloat(precio) || 0, imagen: rutaImagen, estado });
+    
+    if (req.file && nuevoId) {
+        const extension = path.extname(req.file.originalname);
+        const nombreBase = path.basename(req.file.originalname, extension);
+        const nuevoNombreArchivo = `${nombreBase}${nuevoId}${extension}`;
+        
+        const rutaTemporal = path.join(__dirname, "../public/uploads", req.file.filename);
+        const rutaFinal = path.join(__dirname, "../public/uploads", nuevoNombreArchivo);
+        
+        try {
+            if (fs.existsSync(rutaTemporal)) {
+                if (fs.existsSync(rutaFinal)) {
+                    fs.unlinkSync(rutaFinal);
+                }
+                fs.renameSync(rutaTemporal, rutaFinal);
+                
+                const nuevaRutaImagen = `/uploads/${nuevoNombreArchivo}`;
+                await consultaBD.actualizarProducto(nuevoId, { tipo, titulo, precio: parseFloat(precio) || 0, imagen: nuevaRutaImagen, estado });
+            }
+        } catch (error) {
+            console.error("Error al renombrar la imagen en altaProductoAction:", error);
+        }
+    }
+    
     res.redirect("/admin/dashboard");
 };
 
@@ -68,9 +105,15 @@ export const modificarProductoAction = async (req, res) => {
 
     let rutaImagen = imagenExistente;
     if (req.file) {
-        rutaImagen = `/uploads/${req.file.filename}`;
+        const extension = path.extname(req.file.originalname);
+        const nombreBase = path.basename(req.file.originalname, extension);
+        const nuevoNombreArchivo = `${nombreBase}${id}${extension}`;
+        
+        const pathNuevoTemporal = path.join(__dirname, "../public/uploads", req.file.filename);
+        const pathNuevoFinal = path.join(__dirname, "../public/uploads", nuevoNombreArchivo);
+        const nuevaRutaImagen = `/uploads/${nuevoNombreArchivo}`;
 
-        if (imagenExistente && imagenExistente.startsWith("/uploads/")) {
+        if (imagenExistente && imagenExistente !== nuevaRutaImagen && imagenExistente.startsWith("/uploads/")) {
             const pathAnterior = path.join(__dirname, "../public", imagenExistente);
             try {
                 if (fs.existsSync(pathAnterior)) {
@@ -79,6 +122,21 @@ export const modificarProductoAction = async (req, res) => {
             } catch (error) {
                 console.error("Error al borrar la imagen anterior:", error);
             }
+        }
+
+        try {
+            if (req.file.filename !== nuevoNombreArchivo) {
+                if (fs.existsSync(pathNuevoFinal)) {
+                    fs.unlinkSync(pathNuevoFinal);
+                }
+                if (fs.existsSync(pathNuevoTemporal)) {
+                    fs.renameSync(pathNuevoTemporal, pathNuevoFinal);
+                }
+            }
+            rutaImagen = nuevaRutaImagen;
+        } catch (error) {
+            console.error("Error al renombrar el archivo en modificarProductoAction:", error);
+            rutaImagen = `/uploads/${req.file.filename}`;
         }
     }
 

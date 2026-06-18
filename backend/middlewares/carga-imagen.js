@@ -11,8 +11,14 @@ const almacenamiento = multer.diskStorage({
     },
     filename: (req, file, callback) => {
         const extension = path.extname(file.originalname);
-        const nombreUnico = `${Date.now()}-${Math.round(Math.random() * 1e9)}${extension}`;
-        callback(null, nombreUnico);
+        const nombreBase = path.basename(file.originalname, extension);
+        const id = req.body.id;
+        if (id) {
+            callback(null, `${nombreBase}${id}${extension}`);
+        } else {
+            const nombreUnico = `temp-${Date.now()}-${Math.round(Math.random() * 1e9)}${extension}`;
+            callback(null, nombreUnico);
+        }
     }
 });
 

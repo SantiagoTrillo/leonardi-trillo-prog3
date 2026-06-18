@@ -8,11 +8,76 @@
                 <div class="d-flex flex-column w-100 gap-3">
                     <a href="/admin/dashboard?tipo=serie" class="btn-catalogo <%= tipoActual === 'serie' ? 'active' : '' %> text-decoration-none">Catálogo de series</a>
                     <a href="/admin/dashboard?tipo=pelicula" class="btn-catalogo <%= tipoActual === 'pelicula' ? 'active' : '' %> text-decoration-none">Catálogo de películas</a>
+                    
+                    <% if (totalPaginas > 1) { %>
+                        <div class="contenedor-paginacion d-flex justify-content-center gap-2 mt-3">
+                            <% if (paginaActual > 1) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=1" class="btn-paginacion" aria-label="Primera página">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </a>
+                            <% } else { %>
+                                <span class="btn-paginacion disabled" aria-label="Primera página">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </span>
+                            <% } %>
+
+                            <% if (paginaActual > 1) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= paginaActual - 1 %>" class="btn-paginacion" aria-label="Página anterior">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </a>
+                            <% } else { %>
+                                <span class="btn-paginacion disabled" aria-label="Página anterior">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                            <% } %>
+
+                            <% for (let i = 1; i <= totalPaginas; i++) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= i %>" class="btn-paginacion <%= paginaActual === i ? 'active' : '' %>">
+                                    <%= i %>
+                                </a>
+                            <% } %>
+
+                            <% if (paginaActual < totalPaginas) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= paginaActual + 1 %>" class="btn-paginacion" aria-label="Siguiente página">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                            <% } else { %>
+                                <span class="btn-paginacion disabled" aria-label="Siguiente página">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            <% } %>
+
+                            <% if (paginaActual < totalPaginas) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= totalPaginas %>" class="btn-paginacion" aria-label="Última página">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </a>
+                            <% } else { %>
+                                <span class="btn-paginacion disabled" aria-label="Última página">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </span>
+                            <% } %>
+                        </div>
+                    <% } %>
                 </div>
                 <a href="/admin/alta-producto" class="btn-cargar-producto text-center w-100" id="btnCargar">Cargar producto</a>
             </aside>
             <main class="panel-central d-flex flex-column flex-grow-1 p-4">
-                <div class="cabecera-panel-central text-center mb-4"><h1 class="titulo-seccion-admin">Menú de administración de productos</h1>
+                <div class="cabecera-panel-central d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="titulo-seccion-admin">Menú de administración de productos</h1>
+                    <form class="buscador-admin d-flex gap-2" method="GET" action="/admin/dashboard">
+                        <input type="hidden" name="tipo" value="<%= tipoActual %>">
+                        <div class="wrapper-input-buscar position-relative">
+                            <input class="form-control input-buscar-admin" type="text" name="buscar" value="<%= buscar %>" placeholder="Buscar producto...">
+                            <% if (buscar) { %>
+                                <a href="/admin/dashboard?tipo=<%= tipoActual %>" class="btn-clear-buscar" aria-label="Limpiar búsqueda">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </a>
+                            <% } %>
+                        </div>
+                        <button class="btn btn-dark btn-buscar-admin" type="submit" aria-label="Buscar">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
                 </div>
                 <div class="lista-administracion flex-grow-1 overflow-auto d-flex flex-column gap-3" id="listaAdministracion">
                     <% 
@@ -84,7 +149,13 @@
                             </div>
                         </div>
                     <% }); %>
-                    <% if (!mostroSeparador) { %>
+                    <% if (productos.length === 0) { %>
+                        <div class="alert-no-productos text-center p-5 w-100">
+                            <i class="fa-solid fa-box-open mb-3" style="font-size: 3rem; color: var(--color-acento); opacity: 0.85;"></i>
+                            <p class="m-0" style="color: var(--texto-secundario); font-size: 1.1rem;">No se encontraron productos.</p>
+                        </div>
+                    <% } %>
+                    <% if (!mostroSeparador && productos.length > 0) { %>
                         <div class="divisor-productos-inactivos d-none" id="divisorInactivos">
                             <span class="texto-divisor-inactivos">Productos Inactivos</span>
                         </div>
