@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return item;
     });
 
+
     const cuerpoCarrito = document.querySelector(".cuerpo-carrito");
     const grillaPosters = document.getElementById("grillaPosters");
     const listaResumenCarrito = document.getElementById("listaResumenCarrito");
@@ -166,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             const url = window.location.protocol === 'file:' 
-                ? 'http://localhost:3000/api/confirmar-compra' 
+                ? 'http://localhost:3001/api/confirmar-compra' 
                 : '/api/confirmar-compra';
             
             fetch(url, {
@@ -196,6 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         window.location.href = "../ticket/ticket.html";
     });
-
+    
     actualizarCarritoUI();
 });
