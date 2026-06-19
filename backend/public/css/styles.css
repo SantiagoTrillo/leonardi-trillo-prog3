@@ -106,9 +106,9 @@ a {
 }
 
 .btn-home:hover,
-.btn-home:focus,
+.btn-home:focus-visible,
 .btn-tema:hover,
-.btn-tema:focus {
+.btn-tema:focus-visible {
     background: var(--color-acento);
     color: #fff;
     border-color: var(--color-acento);

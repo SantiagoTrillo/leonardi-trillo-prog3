@@ -196,17 +196,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (botonConfirmar) {
-        botonConfirmar.addEventListener("click", () => {
+        botonConfirmar.addEventListener("click", async () => {
             if (carrito.length === 0) return;
 
             let total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
 
             try {
-                const url = window.location.protocol === 'file:' 
-                    ? 'http://localhost:3000/api/ventas' 
-                    : '/api/ventas';
+                const url = 'http://localhost:3000/api/ventas';
                 
-                fetch(url, {
+                const respuesta = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -217,8 +215,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         total: total
                     })
                 });
+                
+                if (!respuesta.ok) {
+                    console.error("Error en respuesta del servidor:", respuesta.statusText);
+                }
             } catch (error) {
-                console.log("Fetch simulado o fallido en backend (esperado):", error);
+                console.error("Error al registrar la venta:", error);
             }
 
             const compraFinalizada = {

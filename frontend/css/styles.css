@@ -106,9 +106,9 @@ a {
 }
 
 .btn-home:hover,
-.btn-home:focus,
+.btn-home:focus-visible,
 .btn-tema:hover,
-.btn-tema:focus {
+.btn-tema:focus-visible {
     background: var(--color-acento);
     color: #fff;
     border-color: var(--color-acento);
@@ -424,7 +424,9 @@ a {
 
 /* Sobrescribir confirmaciones específicas de modales */
 #modalDesactivar .boton-modal-confirmar:hover,
-#modalDesactivar .boton-modal-confirmar:focus {
+#modalDesactivar .boton-modal-confirmar:focus,
+.modal-desactivar .boton-modal-confirmar:hover,
+.modal-desactivar .boton-modal-confirmar:focus {
     background: #e74c3c !important;
     border-color: #e74c3c !important;
     color: #fff !important;
@@ -432,11 +434,80 @@ a {
 }
 
 #modalActivar .boton-modal-confirmar:hover,
-#modalActivar .boton-modal-confirmar:focus {
+#modalActivar .boton-modal-confirmar:focus,
+.modal-activar .boton-modal-confirmar:hover,
+.modal-activar .boton-modal-confirmar:focus {
     background: #2ecc71 !important;
     border-color: #2ecc71 !important;
     color: #fff !important;
     box-shadow: 0 0 14px rgba(46, 204, 113, 0.45) !important;
+}
+
+/* Estilos de Select y File inputs nativos en el Panel de Administración */
+.dropdown-select-admin {
+    height: 50px;
+    border: 1.5px solid #777;
+    border-radius: 10px;
+    color: var(--texto-principal) !important;
+    background-color: #111416 !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px 12px !important;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.dropdown-select-admin:focus {
+    background-color: #111416 !important;
+    border-color: var(--color-acento) !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25) !important;
+    outline: none;
+}
+
+.dropdown-select-admin option {
+    background-color: #15181b !important;
+    color: var(--texto-principal) !important;
+}
+
+.campo-input-admin[type="file"] {
+    line-height: 36px;
+}
+
+.campo-input-admin[type="file"]::file-selector-button {
+    background: var(--boton-oscuro);
+    border: 1.5px solid var(--color-linea);
+    color: var(--texto-principal);
+    border-radius: 8px;
+    padding: 2px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-right: 12px;
+}
+
+.campo-input-admin[type="file"]:hover::file-selector-button {
+    background-color: var(--color-acento) !important;
+    border-color: var(--color-acento) !important;
+    color: #fff !important;
+}
+
+.campo-columna-admin {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    width: 100% !important;
+}
+
+/* Backdrop para modales de Bootstrap con desenfoque de fondo */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
 }
 
 .boton-modal-cancelar {

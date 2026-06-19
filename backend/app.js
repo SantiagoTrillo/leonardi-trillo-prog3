@@ -15,7 +15,6 @@ const PUERTO = process.env.PORT || 3000
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
 
-app.use("/shared", express.static(path.join(__dirname, "../shared")))
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use(express.json());
@@ -27,5 +26,5 @@ app.use("/admin", rutasAdministrador)
 app.use("/api", rutasApi)
 
 app.listen(PUERTO, () => {
-    console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
+    console.log(`Backend disponible en http://localhost:${PUERTO}`);
 });
