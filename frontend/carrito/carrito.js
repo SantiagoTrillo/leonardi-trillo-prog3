@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return item;
     });
 
+
     const cuerpoCarrito = document.querySelector(".cuerpo-carrito");
     const grillaPosters = document.getElementById("grillaPosters");
     const listaResumenCarrito = document.getElementById("listaResumenCarrito");

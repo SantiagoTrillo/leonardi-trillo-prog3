@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const PUERTO = process.env.PORT || 3001
+const PUERTO = process.env.PORT || 3000
 
 app.set("view engine", "ejs")
 app.set("views", path.join(__dirname, "views"))
@@ -23,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/admin", rutasAdministrador)
+
 app.use("/api", rutasApi)
 
 app.listen(PUERTO, () => {

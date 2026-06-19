@@ -13,6 +13,20 @@ export const loginView = (req, res) => {
     })
 }
 
+export const loginAction = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await usuariosModel.validateUser(email, password);
+    if (user) {
+        res.redirect("/admin/dashboard");
+    } else {
+        res.render('inicio-sesion', {
+            titulo: 'Iniciar Sesion',
+            error: 'Correo o contraseña incorrectos'
+        });
+    }
+};
+
+
 export const dashboardView = async (req, res) => {
     const tipoActual = req.query.tipo || "serie";
     const buscar = req.query.buscar || "";
@@ -94,7 +108,7 @@ export const altaProductoAction = async (req, res) => {
 };
 
 export const modificarProductoAction = async (req, res) => {
-    const { id, tipo, titulo, precio, estado, imagenExistente } = req.body;
+    const { id, tipo, titulo, precio, imagen, estado } = req.body;
 
     if (id && estado && !tipo && !titulo) {
         await consultaBD.actualizarEstadoProducto(id, estado);
@@ -142,17 +156,4 @@ export const modificarProductoAction = async (req, res) => {
 
     await consultaBD.actualizarProducto(id, { tipo, titulo, precio: parseFloat(precio) || 0, imagen: rutaImagen, estado });
     res.redirect("/admin/dashboard");
-};
-
-export const loginAction = async (req, res) => {
-    const { email, password } = req.body;
-    const user = await usuariosModel.validateUser(email, password);
-    if (user) {
-        res.redirect("/admin/dashboard");
-    } else {
-        res.render('inicio-sesion', {
-            titulo: 'Iniciar Sesion',
-            error: 'Correo o contraseña incorrectos'
-        });
-    }
 };
