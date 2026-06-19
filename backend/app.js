@@ -2,6 +2,7 @@ import cors from "cors"
 import express, { Router } from "express"
 import path from "path"
 import { fileURLToPath } from "url"
+import cookieParser from "cookie-parser";
 
 import rutasAdministrador from "./routes/views/administrador.routes.js"
 import rutasApi from "./routes/api/api.routes.js"
@@ -18,8 +19,9 @@ app.set("views", path.join(__dirname, "views"))
 app.use("/shared", express.static(path.join(__dirname, "../shared")))
 app.use(express.static(path.join(__dirname, "public")))
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
 app.use("/admin", rutasAdministrador)

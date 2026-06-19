@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import consultaBD from "../models/productos.models.js"
 import usuariosModel from "../models/usuarios.models.js"
+import jwt from "jsonwebtoken";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,15 +16,39 @@ export const loginView = (req, res) => {
 
 export const loginAction = async (req, res) => {
     const { email, password } = req.body;
+
     const user = await usuariosModel.validateUser(email, password);
-    if (user) {
-        res.redirect("/admin/dashboard");
-    } else {
-        res.render('inicio-sesion', {
-            titulo: 'Iniciar Sesion',
-            error: 'Correo o contraseña incorrectos'
+
+    if (!user) {
+        return res.render("inicio-sesion", {
+            titulo: "Iniciar Sesion",
+            error: "Correo o contraseña incorrectos"
         });
     }
+
+    const token = jwt.sign(
+        {
+            id: user.id,
+            correo: user.correo
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "2h"
+        }
+    );
+
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: 2 * 60 * 60 * 1000 // 2 horas
+    });
+
+    res.redirect("/admin/dashboard");
+};
+
+export const logout = (req, res) => {
+    res.clearCookie("token");
+    res.redirect("/admin/login");
 };
 
 
