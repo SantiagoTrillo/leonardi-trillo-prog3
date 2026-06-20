@@ -3,24 +3,20 @@
 <body class="pagina-bienvenida">
     <div class="marco-aplicacion">
         <%- include('partials/nav-inicio-sesion') %>
-        <main class="contenido-bienvenida d-flex flex-column align-items-center text-center">
-            <h1 class="titulo-bienvenida">Panel de Administrador</h1>
-            <form id="formularioLogin" class="formulario-login d-flex flex-column align-items-center mb-0" method="POST" action="/admin/login">
+        <main class="d-flex flex-column align-items-center text-center">
+            <h1>Panel de Administrador</h1>
+            <form id="formularioLogin" class="d-flex flex-column align-items-center mb-0" method="POST" action="/admin/login">
                 <label class="visually-hidden" for="emailAdmin">Correo</label>
-                <input class="form-control campo-nombre" type="email" id="emailAdmin" name="email" placeholder="Correo" autocomplete="email" required>
+                <input class="form-control" type="email" id="emailAdmin" name="email" placeholder="Correo" autocomplete="email" required>
                 <label class="visually-hidden" for="passwordAdmin">Contraseña</label>
-                <input class="form-control campo-nombre" type="password" id="passwordAdmin" name="password" placeholder="Contraseña" autocomplete="current-password" required>
-                <button class="btn btn-dark boton-continuar" type="submit">Ingresar</button>
-                <% if (error) { %>
-                    <span id="mensajeError" class="text-danger mt-2" style="font-size: 0.85rem; font-weight: 500; display: block; width: 100%; text-align: center;">
-                        Credenciales incorrectas
-                    </span>
-                <% } %>
+                <input class="form-control" type="password" id="passwordAdmin" name="password" placeholder="Contraseña" autocomplete="current-password" required>
+                <button class="btn btn-dark" type="submit">Ingresar</button>
+                <% if (error) { %><span id="mensajeError" class="text-danger mt-2" style="font-size: 0.85rem; font-weight: 500; display: block; width: 100%; text-align: center;">Credenciales incorrectas</span><% } %>
             </form>
             <form class="w-100 d-flex flex-column align-items-center" style="margin-top: 20px;" method="POST" action="/admin/login">
                 <input type="hidden" name="email" value="test@test.com">
                 <input type="hidden" name="password" value="test">
-                <button class="btn btn-dark boton-continuar" type="submit" id="btnInicioRapido">Inicio rápido</button>
+                <button class="btn btn-dark" type="submit" id="btnInicioRapido">Inicio rápido</button>
             </form>
         </main>
     </div>

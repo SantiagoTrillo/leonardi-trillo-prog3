@@ -47,8 +47,6 @@
             </div>
         </main>
     </div>
-
-    <!-- Modales de Confirmación para Edición -->
     <div class="modal fade modal-activar" id="modalActivar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content tarjeta-modal border-0">
@@ -60,7 +58,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade modal-desactivar" id="modalDesactivar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content tarjeta-modal border-0">
@@ -72,7 +69,6 @@
             </div>
         </div>
     </div>
-
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         const selectEstado = document.getElementById("inputEstado");
@@ -81,7 +77,6 @@
         const modalActivarEl = document.getElementById("modalActivar");
         const modalDesactivarEl = document.getElementById("modalDesactivar");
         
-        // Instanciar modales de Bootstrap programáticamente
         const modalActivar = new bootstrap.Modal(modalActivarEl);
         const modalDesactivar = new bootstrap.Modal(modalDesactivarEl);
         
@@ -100,7 +95,6 @@
             }
         });
 
-        // Botones de Confirmar
         document.getElementById("btnConfirmarActivar").addEventListener("click", () => {
             modalActivar.hide();
             selectEstado.blur();
@@ -110,7 +104,6 @@
             selectEstado.blur();
         });
 
-        // Botones de Cancelar y eventos de cerrado del modal (restaurar estado inicial)
         const restaurarEstado = () => {
             confirmando = true;
             selectEstado.value = estadoInicial;

@@ -18,10 +18,8 @@ router.use(authMiddleware);
 router.get("/logout", logout);
 
 router.get("/dashboard", dashboardView);
-
 router.get("/alta-producto", altaProductoView);
 router.post("/alta-producto", cargaImagen.single("imagen"), altaProductoAction);
-
 router.get("/modificar-producto", modificarProductoView);
 router.post("/modificar-producto", cargaImagen.single("imagen"), modificarProductoAction);
 

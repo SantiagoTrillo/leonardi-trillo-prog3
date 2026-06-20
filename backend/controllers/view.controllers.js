@@ -1,19 +1,30 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import consultaBD from "../models/productos.models.js"
-import usuariosModel from "../models/usuarios.models.js"
+import consultaBD from "../repositories/productos.repository.js";
+import usuariosModel from "../repositories/usuarios.repository.js";
 import jwt from "jsonwebtoken";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+/**
+ * Renderiza la vista de inicio de sesión de administradores.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const loginView = (req, res) => {
     res.render('inicio-sesion', {
         titulo: 'Iniciar Sesion',
         error: null
-    })
-}
+    });
+};
 
+/**
+ * Procesa la acción de inicio de sesión de administradores.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const loginAction = async (req, res) => {
     const { email, password } = req.body;
 
@@ -25,33 +36,13 @@ export const loginAction = async (req, res) => {
             error: "Correo o contraseña incorrectos"
         });
     }
-
-    const token = jwt.sign(
-        {
-            id: user.id,
-            correo: user.correo
-        },
-        process.env.JWT_SECRET,
-        {
-            expiresIn: "2h"
-        }
-    );
-
-    res.cookie("token", token, {
-        httpOnly: true,
-        sameSite: "strict",
-        maxAge: 2 * 60 * 60 * 1000 // 2 horas
-    });
-
-    res.redirect("/admin/dashboard");
 };
 
-export const logout = (req, res) => {
-    res.clearCookie("token");
-    res.redirect("/admin/login");
-};
-
-
+/**
+ * Renderiza el panel de control administrativo con listado paginado y filtrado de productos.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const dashboardView = async (req, res) => {
     const tipoActual = req.query.tipo || "serie";
     const buscar = req.query.buscar || "";
@@ -76,15 +67,24 @@ export const dashboardView = async (req, res) => {
     });
 };
 
+/**
+ * Renderiza la vista de formulario para dar de alta un producto.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const altaProductoView = (req, res) => {
     res.render('alta-producto', {
         titulo: 'Alta de Producto'
-    })
-} 
+    });
+};
 
+/**
+ * Renderiza la vista de formulario para modificar un producto existente.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const modificarProductoView = async (req, res) => {
     const { id } = req.query;
-
     const product = await consultaBD.obtenerProductoPorId(id);
 
     if (!product) {
@@ -95,8 +95,13 @@ export const modificarProductoView = async (req, res) => {
         titulo: 'Modificar Producto',
         product
     });
-}
+};
 
+/**
+ * Procesa la creación de un nuevo producto, incluyendo la gestión de archivos de imagen subidos.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const altaProductoAction = async (req, res) => {
     const { tipo, titulo, precio, estado } = req.body;
     let rutaImagen = "";
@@ -132,6 +137,11 @@ export const altaProductoAction = async (req, res) => {
     res.redirect("/admin/dashboard");
 };
 
+/**
+ * Procesa la modificación de un producto existente, incluyendo la actualización de imágenes y el cambio de estado.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ */
 export const modificarProductoAction = async (req, res) => {
     const { id, tipo, titulo, precio, imagenExistente, estado } = req.body;
 

@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalPaginas = 1;
     const paginacionContainer = document.getElementById("paginacionContainer");
 
+    /**
+     * Dibuja los productos de la página y catálogo actual en la grilla principal.
+     */
     function renderizarCatalogo() {
         grillaProductos.innerHTML = "";
         const productos = productosDB[catalogoActual];
@@ -71,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /**
+     * Actualiza la interfaz del carrito lateral y recalcula el monto total.
+     */
     function actualizarCarritoUI() {
         listaCarrito.innerHTML = "";
 
@@ -130,6 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /**
+     * Agrega un producto al carrito o incrementa su cantidad si ya existe.
+     * @param {Object} producto - El producto a agregar.
+     */
     function agregarAlCarrito(producto) {
         const itemExistente = carrito.find(item => item.id === producto.id);
 
@@ -149,6 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 50);
     }
 
+    /**
+     * Disminuye la cantidad de un producto del carrito y lo elimina si llega a cero.
+     * @param {number|string} id - ID del producto a eliminar.
+     */
     function eliminarDelCarrito(id) {
         const itemExistente = carrito.find(item => item.id === id);
         if (itemExistente) {
@@ -182,6 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    /**
+     * Realiza una solicitud fetch para obtener productos desde el backend.
+     */
     async function cargarProductos() {
         try {
             const categoriaFiltro = catalogoActual === "series" ? "serie" : "pelicula";
@@ -201,6 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    /**
+     * Renderiza el componente de paginación del catálogo.
+     */
     function renderizarPaginacion() {
         if (!paginacionContainer) return;
         paginacionContainer.innerHTML = "";
@@ -209,6 +229,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        /**
+         * Crea un botón individual de paginación con su comportamiento al hacer clic.
+         * @param {string} texto - Texto visible del botón.
+         * @param {number} paginaDestino - Página a la que redirige.
+         * @param {boolean} deshabilitado - Si el botón debe estar inactivo.
+         * @param {boolean} activo - Si el botón corresponde a la página actual.
+         */
         function crearBotonPaginacion(texto, paginaDestino, deshabilitado = false, activo = false) {
             const btn = document.createElement("button");
             btn.type = "button";
@@ -228,13 +255,9 @@ document.addEventListener("DOMContentLoaded", () => {
             paginacionContainer.appendChild(btn);
         }
 
-        // << (Primera página)
         crearBotonPaginacion("<<", 1, paginaActual === 1);
-
-        // < (Página anterior)
         crearBotonPaginacion("<", paginaActual - 1, paginaActual === 1);
 
-        // Nodos numéricos de páginas
         let inicioPagina = Math.max(1, paginaActual - 1);
         let finPagina = Math.min(totalPaginas, inicioPagina + 2);
         
@@ -246,10 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
             crearBotonPaginacion(i.toString(), i, false, i === paginaActual);
         }
 
-        // > (Página siguiente)
         crearBotonPaginacion(">", paginaActual + 1, paginaActual === totalPaginas);
-
-        // >> (Última página)
         crearBotonPaginacion(">>", totalPaginas, paginaActual === totalPaginas);
     }
 

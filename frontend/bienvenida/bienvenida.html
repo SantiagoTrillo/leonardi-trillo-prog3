@@ -8,32 +8,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="./bienvenida.css">
+    <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
     <script src="../js/tema.js" defer></script>
     <script src="./bienvenida.js" defer></script>
 </head>
 <body class="pagina-bienvenida">
     <div class="marco-aplicacion">
-        <nav class="barra-bienvenida">
-            <div class="contenido-barra-bienvenida">
-                <div class="seccion-izquierda d-flex align-items-center gap-3">
+        <nav>
+            <div>
+                <div class="d-flex align-items-center gap-3">
                     <a class="btn btn-outline-light acceso-administradores" href="http://localhost:3000/admin/login">Acceso Administradores</a>
-                    <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
+                    <button class="btn-tema" id="btnTema" aria-label="Cambiar tema" type="button"><i class="fa-solid fa-moon"></i></button>
                 </div>
-                <span class="nombre-aplicacion">CineStream</span>
-                <p class="autores">Hecho por: Santiago Leonardi y Santiago Trillo</p>
+                <span>CineStream</span>
+                <div><p>Hecho por: Santiago Leonardi y Santiago Trillo</p></div>
             </div>
         </nav>
-        <main class="contenido-bienvenida d-flex flex-column align-items-center text-center">
-            <h1 class="titulo-bienvenida">Te damos la bienvenida</h1>
-            <form id="formularioBienvenida" class="formulario-bienvenida d-flex flex-column align-items-center">
+        <main class="d-flex flex-column align-items-center text-center">
+            <h1>Te damos la bienvenida</h1>
+            <form id="formularioBienvenida" class="d-flex flex-column align-items-center">
                 <label class="visually-hidden" for="nombreCliente">Ingrese su nombre</label>
-                <input class="form-control campo-nombre" type="text" id="nombreCliente" name="nombreCliente" placeholder="Ingrese su nombre" autocomplete="given-name" maxlength="50" required>
-                <button class="btn btn-dark boton-continuar" type="submit">Continuar</button>
+                <input class="form-control" type="text" id="nombreCliente" name="nombreCliente" placeholder="Ingrese su nombre" autocomplete="given-name" maxlength="50" required>
+                <button class="btn btn-dark" type="submit">Continuar</button>
             </form>
         </main>
     </div>
 </body>
 </html>
-

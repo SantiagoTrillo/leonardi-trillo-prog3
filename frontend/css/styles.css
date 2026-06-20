@@ -1,20 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-    --fondo-oscuro: #111;
+    --fondo-principal: #111;
     --color-linea: #c9c9c9;
     --texto-principal: #d6d6d6;
     --texto-secundario: #a8a8a8;
-    --boton-oscuro: #202326;
+    --boton-principal: #202326;
     --color-acento: #ff9000;
 }
 
 body.light-mode {
-    --fondo-oscuro: #f5f6f8;
+    --fondo-principal: #f5f6f8;
     --color-linea: #2e3440;
     --texto-principal: #2e3440;
     --texto-secundario: #4c566a;
-    --boton-oscuro: #d8dee9;
+    --boton-principal: #d8dee9;
     --color-acento: #e67e00;
 }
 
@@ -30,7 +30,7 @@ body {
 
 body {
     font-family: "Inter", Arial, sans-serif;
-    background: var(--fondo-oscuro);
+    background: var(--fondo-principal);
     color: var(--texto-principal);
     transition: background 0.3s ease, color 0.3s ease;
     width: 100%;
@@ -54,7 +54,7 @@ a {
     height: auto;
     border: 1.5px solid var(--color-linea);
     border-radius: 22px;
-    background: var(--fondo-oscuro);
+    background: var(--fondo-principal);
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
@@ -65,15 +65,13 @@ a {
     }
 }
 
-.barra-superior,
-.barra-bienvenida {
+nav {
     height: 96px;
     border-bottom: 1.5px solid var(--color-linea);
     transition: border-color 0.3s ease;
 }
 
-.contenido-barra-superior,
-.contenido-barra-bienvenida {
+nav > div {
     height: 100%;
     position: relative;
     display: flex;
@@ -82,7 +80,7 @@ a {
     padding: 0 52px;
 }
 
-.seccion-izquierda {
+nav > div > div:first-child {
     width: 260px;
     display: flex;
     align-items: center;
@@ -112,11 +110,11 @@ a {
     background: var(--color-acento);
     color: #fff;
     border-color: var(--color-acento);
-    box-shadow: 0 0 14px rgba(255, 144, 0, 0.3);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.35);
     transform: scale(1.05);
 }
 
-.nombre-aplicacion {
+nav > div > span {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -128,7 +126,7 @@ a {
     white-space: nowrap;
 }
 
-.autores {
+nav p {
     margin: 0;
     color: var(--texto-principal);
     font-size: clamp(0.95rem, 1.1vw, 1.15rem);
@@ -139,7 +137,7 @@ a {
     flex-shrink: 0;
 }
 
-.seccion-derecha {
+nav > div > div:last-child {
     width: 260px;
     display: flex;
     justify-content: flex-end;
@@ -172,77 +170,14 @@ a {
     transform: scale(1.02);
 }
 
-.contenido-bienvenida {
-    min-height: calc(100vh - 96px - 24px - 24px);
-    height: auto;
-    padding: clamp(58px, 7vh, 72px) 20px 28px;
-}
-
-.titulo-bienvenida {
-    margin: 0;
-    color: var(--texto-principal);
-    font-size: clamp(2.25rem, 3.1vw, 3rem);
-    font-weight: 700;
-    letter-spacing: 0;
-}
-
-.campo-nombre {
-    width: 230px;
-    height: 50px;
-    padding: 0 18px;
-    border: 1.5px solid #777;
-    border-radius: 10px;
-    background: transparent;
-    color: var(--texto-principal);
-    font-size: 0.95rem;
-    font-weight: 400;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.campo-nombre::placeholder {
-    color: var(--texto-secundario);
-    opacity: 1;
-}
-
-.campo-nombre:focus {
-    background: transparent;
-    color: var(--texto-principal);
-    border-color: var(--color-acento);
-    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
-    outline: none;
-}
-
-.boton-continuar {
-    width: 245px;
-    height: 58px;
-    border: 1.5px solid var(--color-linea);
-    border-radius: 12px;
-    background: var(--boton-oscuro);
-    color: var(--texto-principal);
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.boton-continuar:hover,
-.boton-continuar:focus {
-    background: var(--color-acento);
-    color: #fff;
-    border-color: var(--color-acento);
-    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
-    transform: scale(1.02);
-}
 
 @media (max-width: 1023.98px) {
-    .barra-superior,
-    .barra-bienvenida {
+    nav {
         height: auto;
         padding: 16px 0;
     }
 
-    .contenido-barra-superior,
-    .contenido-barra-bienvenida {
+    nav > div {
         flex-direction: column;
         justify-content: center;
         gap: 8px;
@@ -250,7 +185,7 @@ a {
         height: auto;
     }
 
-    .seccion-izquierda {
+    nav > div > div:first-child {
         width: auto !important;
         justify-content: center;
         gap: 12px;
@@ -274,19 +209,19 @@ a {
         flex-shrink: 0 !important;
     }
 
-    .nombre-aplicacion {
+    nav > div > span {
         position: static;
         transform: none;
     }
 
-    .seccion-derecha {
+    nav > div > div:last-child {
         width: auto !important;
         display: flex !important;
         justify-content: center !important;
         width: 100% !important;
     }
 
-    .autores {
+    nav p {
         font-size: 0.85rem !important;
         text-align: center !important;
         white-space: normal !important;
@@ -294,16 +229,10 @@ a {
         width: 100% !important;
     }
 
-    .contenido-bienvenida {
-        height: auto;
-        min-height: auto;
-        padding-top: 38px;
-    }
 }
 
 @media (min-width: 1024px) and (max-width: 1199.98px) {
-    .contenido-barra-superior,
-    .contenido-barra-bienvenida {
+    nav > div {
         padding: 0 24px !important;
     }
 
@@ -321,7 +250,7 @@ a {
         border-radius: 12px !important;
     }
 
-    .autores {
+    nav p {
         font-size: 0.9rem !important;
         white-space: normal !important;
         max-width: 220px !important;
@@ -329,22 +258,10 @@ a {
 }
 
 @media (max-width: 575.98px) {
-    .nombre-aplicacion {
+    nav > div > span {
         font-size: 1.55rem;
     }
 
-    .titulo-bienvenida {
-        font-size: 1.9rem;
-    }
-
-    .campo-nombre,
-    .boton-continuar {
-        width: 100% !important;
-    }
-
-    .boton-continuar {
-        height: 48px !important;
-    }
 }
 
 .validador-invisible {
@@ -406,7 +323,7 @@ a {
     min-width: 140px;
     border: 1.5px solid var(--color-linea) !important;
     border-radius: 12px !important;
-    background: var(--boton-oscuro) !important;
+    background: var(--boton-principal) !important;
     color: var(--texto-principal) !important;
     font-size: 0.95rem;
     font-weight: 600;
@@ -478,7 +395,7 @@ a {
 }
 
 .campo-input-admin[type="file"]::file-selector-button {
-    background: var(--boton-oscuro);
+    background: var(--boton-principal);
     border: 1.5px solid var(--color-linea);
     color: var(--texto-principal);
     border-radius: 8px;
