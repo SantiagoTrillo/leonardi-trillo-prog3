@@ -36,6 +36,25 @@ export const loginAction = async (req, res) => {
             error: "Correo o contraseña incorrectos"
         });
     }
+
+    const token = jwt.sign(
+        {
+            id: user.id,
+            correo: user.correo
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: "2h"
+        }
+    );
+
+    res.cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        maxAge: 2 * 60 * 60 * 1000 // 2 horas
+    });
+
+    res.redirect("/admin/dashboard");
 };
 export const logout = (req, res) => {
     res.clearCookie("token");
