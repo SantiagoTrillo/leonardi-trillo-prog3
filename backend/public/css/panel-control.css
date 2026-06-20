@@ -50,7 +50,7 @@
     justify-content: center;
     border: 1.5px solid var(--color-linea);
     border-radius: 16px;
-    background: var(--boton-oscuro);
+    background: var(--boton-principal);
     color: var(--texto-principal);
     font-size: 1.1rem;
     font-weight: 600;
@@ -376,7 +376,7 @@
     border-radius: 12px;
     color: var(--texto-principal);
     font-size: 1.1rem;
-    background: var(--boton-oscuro);
+    background: var(--boton-principal);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
 }

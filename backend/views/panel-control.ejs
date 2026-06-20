@@ -8,7 +8,6 @@
                 <div class="d-flex flex-column w-100 gap-3">
                     <a href="/admin/dashboard?tipo=serie" class="btn-catalogo <%= tipoActual === 'serie' ? 'active' : '' %> text-decoration-none">Catálogo de series</a>
                     <a href="/admin/dashboard?tipo=pelicula" class="btn-catalogo <%= tipoActual === 'pelicula' ? 'active' : '' %> text-decoration-none">Catálogo de películas</a>
-                    
                     <% if (totalPaginas > 1) { %>
                         <div class="contenedor-paginacion d-flex justify-content-center gap-2 mt-3">
                             <% if (paginaActual > 1) { %>
@@ -20,7 +19,6 @@
                                     <i class="fa-solid fa-angles-left"></i>
                                 </span>
                             <% } %>
-
                             <% if (paginaActual > 1) { %>
                                 <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= paginaActual - 1 %>" class="btn-paginacion" aria-label="Página anterior">
                                     <i class="fa-solid fa-chevron-left"></i>
@@ -30,13 +28,11 @@
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                             <% } %>
-
                             <% for (let i = 1; i <= totalPaginas; i++) { %>
                                 <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= i %>" class="btn-paginacion <%= paginaActual === i ? 'active' : '' %>">
                                     <%= i %>
                                 </a>
                             <% } %>
-
                             <% if (paginaActual < totalPaginas) { %>
                                 <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= paginaActual + 1 %>" class="btn-paginacion" aria-label="Siguiente página">
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -46,7 +42,6 @@
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </span>
                             <% } %>
-
                             <% if (paginaActual < totalPaginas) { %>
                                 <a href="/admin/dashboard?tipo=<%= tipoActual %>&buscar=<%= buscar %>&pagina=<%= totalPaginas %>" class="btn-paginacion" aria-label="Última página">
                                     <i class="fa-solid fa-angles-right"></i>
@@ -114,8 +109,6 @@
                                 <button class="btn-accion-admin btn-borrar-admin <%= producto.estado === 'inactivo' ? 'd-none' : '' %>" data-bs-toggle="modal" data-bs-target="#modalDesactivar-<%= producto.id %>" aria-label="Borrar producto" type="button"><i class="fa-solid fa-trash-can"></i></button>
                             </div>
                         </div>
-
-                        <!-- Modal Desactivar para este producto -->
                         <div class="modal fade modal-desactivar" id="modalDesactivar-<%= producto.id %>" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content tarjeta-modal border-0">
@@ -131,8 +124,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modal Activar para este producto -->
                         <div class="modal fade modal-activar" id="modalActivar-<%= producto.id %>" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content tarjeta-modal border-0">
@@ -164,6 +155,5 @@
             </main>
         </div>
     </div>
-
 </body>
 </html>

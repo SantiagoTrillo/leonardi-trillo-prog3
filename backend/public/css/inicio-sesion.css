@@ -1,4 +1,18 @@
-.formulario-login {
+.pagina-bienvenida main {
+    min-height: calc(100vh - 96px - 24px - 24px);
+    height: auto;
+    padding: clamp(58px, 7vh, 72px) 20px 28px;
+}
+
+.pagina-bienvenida main h1 {
+    margin: 0;
+    color: var(--texto-principal);
+    font-size: clamp(2.25rem, 3.1vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.pagina-bienvenida main form#formularioLogin {
     width: min(100%, 270px);
     margin-top: clamp(40px, 6vh, 60px);
     display: flex;
@@ -7,17 +21,78 @@
     gap: 20px;
 }
 
-.formulario-login .campo-nombre {
+.pagina-bienvenida main form#formularioLogin input {
     width: 245px;
+    height: 50px;
+    padding: 0 18px;
+    border: 1.5px solid #777;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--texto-principal);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pagina-bienvenida main form#formularioLogin input::placeholder {
+    color: var(--texto-secundario);
+    opacity: 1;
+}
+
+.pagina-bienvenida main form#formularioLogin input:focus {
+    background: transparent;
+    color: var(--texto-principal);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 0.2rem rgba(255, 144, 0, 0.25);
+    outline: none;
+}
+
+.pagina-bienvenida main form button {
+    width: 245px;
+    height: 58px;
+    border: 1.5px solid var(--color-linea);
+    border-radius: 12px;
+    background: var(--boton-principal);
+    color: var(--texto-principal);
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.pagina-bienvenida main form button:hover,
+.pagina-bienvenida main form button:focus {
+    background: var(--color-acento);
+    color: #fff;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 14px rgba(255, 144, 0, 0.45);
+    transform: scale(1.02);
+}
+
+@media (max-width: 1023.98px) {
+    .pagina-bienvenida main {
+        height: auto;
+        min-height: auto;
+        padding-top: 38px;
+    }
 }
 
 @media (max-width: 575.98px) {
-    .formulario-login {
+    .pagina-bienvenida main h1 {
+        font-size: 1.9rem;
+    }
+    
+    .pagina-bienvenida main form#formularioLogin {
         width: 100%;
         gap: 16px;
     }
-    
-    .formulario-login .campo-nombre {
-        width: 100%;
+
+    .pagina-bienvenida main form#formularioLogin input,
+    .pagina-bienvenida main form button {
+        width: 100% !important;
+    }
+
+    .pagina-bienvenida main form button {
+        height: 48px !important;
     }
 }
