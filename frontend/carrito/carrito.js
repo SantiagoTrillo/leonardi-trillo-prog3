@@ -11,14 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return item;
     });
 
-
     const cuerpoCarrito = document.querySelector(".cuerpo-carrito");
     const grillaPosters = document.getElementById("grillaPosters");
     const listaResumenCarrito = document.getElementById("listaResumenCarrito");
     const totalMonto = document.getElementById("totalMonto");
     const btnConfirmarCompra = document.getElementById("btnConfirmarCompra");
-    
 
+    /**
+     * Sincroniza la interfaz del carrito y el resumen de compra con los datos del sessionStorage.
+     */
     function actualizarCarritoUI() {
         if (carrito.length === 0) {
             cuerpoCarrito.innerHTML = `
@@ -145,6 +146,10 @@ document.addEventListener("DOMContentLoaded", () => {
         sessionStorage.setItem("carrito", JSON.stringify(carrito));
     }
 
+    /**
+     * Incrementa la cantidad de un producto específico en el carrito.
+     * @param {Object} producto - El producto del cual incrementar la cantidad.
+     */
     function sumarCantidad(producto) {
         const itemExistente = carrito.find(item => item.id === producto.id);
         if (itemExistente) {
@@ -153,7 +158,11 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarritoUI();
     }
 
-    function restarCantidad(productoId) {
+    /**
+     * Decrementa la cantidad de un producto en el carrito y lo remueve si llega a cero.
+     * @param {number|string} productoId - El identificador del producto.
+     */
+    function determinarRestarCantidad(productoId) {
         const itemExistente = carrito.find(item => item.id === productoId);
         if (itemExistente) {
             itemExistente.cantidad -= 1;
@@ -164,10 +173,21 @@ document.addEventListener("DOMContentLoaded", () => {
         actualizarCarritoUI();
     }
 
+    /**
+     * Alias de restar cantidad de producto para mantener consistencia.
+     * @param {number|string} productoId - El identificador del producto.
+     */
+    function restarCantidad(productoId) {
+        determinarRestarCantidad(productoId);
+    }
+
     const modalConfirmar = document.getElementById("modalConfirmarCompra");
     const botonConfirmar = document.getElementById("botonConfirmarCompra");
     const botonCancelar = document.getElementById("botonCancelarCompra");
 
+    /**
+     * Oculta el modal de confirmación de compra.
+     */
     function ocultarModal() {
         if (modalConfirmar) {
             modalConfirmar.classList.add("d-none");

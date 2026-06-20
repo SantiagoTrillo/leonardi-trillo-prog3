@@ -1,6 +1,10 @@
 import fs from "fs";
 import Usuario from "../models/usuario.model.js";
 
+/**
+ * Borra un archivo temporal que fue subido en la solicitud si esta falla validación.
+ * @param {Object} req - Objeto de solicitud de Express.
+ */
 const borrarArchivoCargado = (req) => {
     if (req.file) {
         try {
@@ -11,6 +15,12 @@ const borrarArchivoCargado = (req) => {
     }
 };
 
+/**
+ * Valida los datos para el registro de administradores.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Siguiente función en la cadena de middleware.
+ */
 export const validarRegistroAdmin = (req, res, next) => {
     const { correo, clave } = req.body;
     if (!correo || !correo.includes("@") || !correo.includes(".")) {
@@ -22,6 +32,12 @@ export const validarRegistroAdmin = (req, res, next) => {
     next();
 };
 
+/**
+ * Valida los datos enviados al confirmar/registrar una venta.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Siguiente función en la cadena de middleware.
+ */
 export const validarRegistroVenta = (req, res, next) => {
     const { nombre_cliente, fecha, hora, total, productos } = req.body;
     if (!nombre_cliente || nombre_cliente.trim() === "") {
@@ -49,6 +65,12 @@ export const validarRegistroVenta = (req, res, next) => {
     next();
 };
 
+/**
+ * Valida los datos de entrada para la creación (alta) de un producto.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Siguiente función en la cadena de middleware.
+ */
 export const validarAltaProducto = (req, res, next) => {
     const { tipo, titulo, precio, estado } = req.body;
     
@@ -74,10 +96,15 @@ export const validarAltaProducto = (req, res, next) => {
     next();
 };
 
+/**
+ * Valida los datos para la modificación de un producto existente.
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Siguiente función en la cadena de middleware.
+ */
 export const validarModificarProducto = (req, res, next) => {
     const { id, tipo, titulo, precio, estado } = req.body;
     
-    // Si solo es actualización de estado (desde el panel de control)
     if (id && estado && !tipo && !titulo && !precio) {
         if (estado !== "activo" && estado !== "inactivo") {
             return res.status(400).json({ error: "El estado debe ser 'activo' o 'inactivo'." });

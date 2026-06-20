@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnHome = document.getElementById("btnHome");
     const btnGuardarTicket = document.getElementById("btnGuardarTicket");
 
+    /**
+     * Agrupa productos idénticos incrementando su cantidad para el desglose del ticket.
+     * @param {Array<Object>} items - Lista de productos agregados en la compra.
+     * @returns {Array<Object>} Lista de productos agrupados por ID con sus cantidades consolidadas.
+     */
     function agruparProductos(items) {
         const agrupados = [];
         items.forEach(item => {

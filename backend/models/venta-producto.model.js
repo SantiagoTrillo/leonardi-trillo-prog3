@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import connection from "../database/db-connection.js";
+import connection from "../database/conexion.js";
 import Venta from "./venta.model.js";
 import Producto from "./producto.model.js";
 
@@ -33,7 +33,6 @@ const VentaProducto = connection.define(
     }
 );
 
-// Establecer relaciones muchos a muchos
 Venta.belongsToMany(Producto, {
     through: VentaProducto,
     foreignKey: "venta_id",
