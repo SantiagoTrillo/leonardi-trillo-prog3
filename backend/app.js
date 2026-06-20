@@ -28,5 +28,5 @@ app.use("/admin", rutasAdministrador)
 app.use("/api", rutasApi)
 
 app.listen(PUERTO, () => {
-    console.log(`Backend disponible en http://localhost:${PUERTO}`);
+    console.log(`Backend disponible en http://localhost:${PUERTO}/admin/login`);
 });

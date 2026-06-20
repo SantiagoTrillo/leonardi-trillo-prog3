@@ -37,6 +37,10 @@ export const loginAction = async (req, res) => {
         });
     }
 };
+export const logout = (req, res) => {
+    res.clearCookie("token");
+    res.redirect("/admin/login");
+};
 
 /**
  * Renderiza el panel de control administrativo con listado paginado y filtrado de productos.
