@@ -72,7 +72,7 @@
     <script>
     document.addEventListener("DOMContentLoaded", () => {
         const selectEstado = document.getElementById("inputEstado");
-        const estadoInicial = selectEstado.value;
+        let estadoInicial = selectEstado.value;
         
         const modalActivarEl = document.getElementById("modalActivar");
         const modalDesactivarEl = document.getElementById("modalDesactivar");
@@ -96,10 +96,12 @@
         });
 
         document.getElementById("btnConfirmarActivar").addEventListener("click", () => {
+            estadoInicial = selectEstado.value;
             modalActivar.hide();
             selectEstado.blur();
         });
         document.getElementById("btnConfirmarDesactivar").addEventListener("click", () => {
+            estadoInicial = selectEstado.value;
             modalDesactivar.hide();
             selectEstado.blur();
         });
