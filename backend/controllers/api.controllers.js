@@ -38,7 +38,7 @@ export const registrarAdministrador = async (req, res) => {
     }
 };
 
-/* Registra una nueva compra (venta) asociándola con sus productos y cantidades correspondientes */
+/* Registra una nueva compra o venta asociandola con sus productos y cantidades correspondientes */
 export const registrarVenta = async (req, res) => {
     try {
         const { nombre_cliente, fecha, hora, total, productos } = req.body;
@@ -79,8 +79,7 @@ export const registrarVenta = async (req, res) => {
     }
 };
 
-/**
- * Obtiene el listado completo de todas las ventas registradas con sus productos */
+/* Obtiene el listado completo de todas las ventas registradas con sus productos */
 export const obtenerVentas = async (req, res) => {
     try {
         const ventas = await Venta.findAll({
