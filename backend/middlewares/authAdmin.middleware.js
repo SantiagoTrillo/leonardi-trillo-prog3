@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Middlewares de autentificacion
 const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
 

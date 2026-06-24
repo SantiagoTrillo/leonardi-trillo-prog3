@@ -9,7 +9,7 @@ const connection = new Sequelize(
         dialect: 'mysql',
         logging: false,
         define: {
-            timestamps: false
+            timestamps: false //Evita que agregue columnas automaticamente 
         }
     }
 );

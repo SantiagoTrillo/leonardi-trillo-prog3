@@ -5,11 +5,7 @@ import Producto from "../models/producto.model.js";
 import VentaProducto from "../models/venta-producto.model.js";
 import { crearPDFTicket } from "../utils/ticket-pdf.js";
 
-/**
- * Registra un nuevo administrador en el sistema cifrando su contraseña.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Registra un nuevo administrador en el sistema cifrando su contraseña. */
 export const registrarAdministrador = async (req, res) => {
     try {
         const { correo, clave } = req.body;
@@ -42,11 +38,7 @@ export const registrarAdministrador = async (req, res) => {
     }
 };
 
-/**
- * Registra una nueva compra (venta) asociándola con sus productos y cantidades correspondientes.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Registra una nueva compra (venta) asociándola con sus productos y cantidades correspondientes */
 export const registrarVenta = async (req, res) => {
     try {
         const { nombre_cliente, fecha, hora, total, productos } = req.body;
@@ -88,10 +80,7 @@ export const registrarVenta = async (req, res) => {
 };
 
 /**
- * Obtiene el listado completo de todas las ventas registradas con sus productos.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+ * Obtiene el listado completo de todas las ventas registradas con sus productos */
 export const obtenerVentas = async (req, res) => {
     try {
         const ventas = await Venta.findAll({
@@ -113,11 +102,7 @@ export const obtenerVentas = async (req, res) => {
     }
 };
 
-/**
- * Obtiene un listado paginado y filtrado por estado/categoría de productos de forma genérica.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Obtiene un listado paginado y filtrado por estado/categoria de productos de forma generica */
 export const obtenerProductosPaginados = async (req, res) => {
     try {
         const pagina = parseInt(req.query.pagina) || 1;
@@ -159,11 +144,7 @@ export const obtenerProductosPaginados = async (req, res) => {
     }
 };
 
-/**
- * Genera y envía un archivo PDF del ticket de compra utilizando Puppeteer mediante un servicio externo.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Genera y envia un archivo PDF del ticket de compra utilizando Puppeteer mediante un servicio externo */
 export const generarTicketPDF = async (req, res) => {
     try {
         const { cliente, fecha, hora, items, total, tema } = req.body;

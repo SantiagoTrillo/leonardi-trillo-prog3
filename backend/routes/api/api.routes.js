@@ -4,13 +4,7 @@ import { validarRegistroAdmin, validarRegistroVenta } from "../../middlewares/va
 
 const router = express.Router();
 
-/**
- * Middleware adaptador para transformar y completar los datos de compra enviados por el cliente
- * antes de pasarlos a la validación e inserción en base de datos.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- * @param {Function} next - Siguiente middleware en la cadena.
- */
+/* prepara los datos de la compra antes de guardarlos */
 const adaptarConfirmarCompra = (req, res, next) => {
     if (req.body.cliente && !req.body.nombre_cliente) {
         req.body.nombre_cliente = req.body.cliente;

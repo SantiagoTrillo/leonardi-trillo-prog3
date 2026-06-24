@@ -8,11 +8,7 @@ import jwt from "jsonwebtoken";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-/**
- * Renderiza la vista de inicio de sesión de administradores.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Renderiza la vista de inicio de sesion de administradores. */
 export const loginView = (req, res) => {
     res.render('inicio-sesion', {
         titulo: 'Iniciar Sesion',
@@ -20,11 +16,7 @@ export const loginView = (req, res) => {
     });
 };
 
-/**
- * Procesa la acción de inicio de sesión de administradores.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Procesa la accion de inicio de sesion de administradores.*/
 export const loginAction = async (req, res) => {
     const { email, password } = req.body;
 
@@ -51,7 +43,7 @@ export const loginAction = async (req, res) => {
     res.cookie("token", token, {
         httpOnly: true,
         sameSite: "strict",
-        maxAge: 2 * 60 * 60 * 1000 // 2 horas
+        maxAge: 10 * 60 * 1000 // 10 minutos
     });
 
     res.redirect("/admin/dashboard");
@@ -61,11 +53,7 @@ export const logout = (req, res) => {
     res.redirect("/admin/login");
 };
 
-/**
- * Renderiza el panel de control administrativo con listado paginado y filtrado de productos.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Renderiza el panel de control administrativo con listado paginado y filtrado de productos.*/
 export const dashboardView = async (req, res) => {
     const tipoActual = req.query.tipo || "serie";
     const buscar = req.query.buscar || "";
@@ -90,22 +78,14 @@ export const dashboardView = async (req, res) => {
     });
 };
 
-/**
- * Renderiza la vista de formulario para dar de alta un producto.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Renderiza la vista de formulario para dar de alta un producto */
 export const altaProductoView = (req, res) => {
     res.render('alta-producto', {
         titulo: 'Alta de Producto'
     });
 };
 
-/**
- * Renderiza la vista de formulario para modificar un producto existente.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Renderiza la vista de formulario para modificar un producto existente */
 export const modificarProductoView = async (req, res) => {
     const { id } = req.query;
     const product = await consultaBD.obtenerProductoPorId(id);
@@ -120,11 +100,7 @@ export const modificarProductoView = async (req, res) => {
     });
 };
 
-/**
- * Procesa la creación de un nuevo producto, incluyendo la gestión de archivos de imagen subidos.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Procesa la creacion de un nuevo producto, incluyendo la gestion de archivos de imagen subidos */
 export const altaProductoAction = async (req, res) => {
     const { tipo, titulo, precio, estado } = req.body;
     let rutaImagen = "";
@@ -160,14 +136,11 @@ export const altaProductoAction = async (req, res) => {
     res.redirect("/admin/dashboard");
 };
 
-/**
- * Procesa la modificación de un producto existente, incluyendo la actualización de imágenes y el cambio de estado.
- * @param {Object} req - Objeto de solicitud de Express.
- * @param {Object} res - Objeto de respuesta de Express.
- */
+/* Procesa la modificacion de un producto existente, incluyendo la actualización de imagenes y el cambio de estado */
 export const modificarProductoAction = async (req, res) => {
     const { id, tipo, titulo, precio, imagenExistente, estado } = req.body;
 
+    //Actualizar estado
     if (id && estado && !tipo && !titulo) {
         await consultaBD.actualizarEstadoProducto(id, estado);
         const producto = await consultaBD.obtenerProductoPorId(id);
@@ -175,6 +148,7 @@ export const modificarProductoAction = async (req, res) => {
         return res.redirect(`/admin/dashboard?tipo=${tipoRedireccion}`);
     }
 
+    //Cambia el nombre de la imagen a nombre unico y definitivo
     let rutaImagen = imagenExistente;
     if (req.file) {
         const extension = path.extname(req.file.originalname);

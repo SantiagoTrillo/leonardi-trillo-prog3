@@ -32,7 +32,7 @@ const Producto = connection.define(
         }
     },
     {
-        tableName: "productos"
+        tableName: "productos" //Informa a mySQL que la tabla se llama productos
     }
 );
 
